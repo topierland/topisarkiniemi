@@ -23,7 +23,7 @@ body {
 }
 
 * {
-    font-family: bilo, Arial, sans-serif;
+    font-family: bilo, Helvetica, Arial, sans-serif;
 }
 
 *, *:before, *:after {
@@ -39,7 +39,7 @@ img {
 
 h1, h2, p, a {
     font-size: 2.2rem;
-    line-height: 1.3;
+    line-height: 1.35;
     text-align: center;
     font-weight: normal;
     color: inherit;
@@ -47,7 +47,7 @@ h1, h2, p, a {
 }
 
 h2 {
-    margin-bottom: 1em;
+    font-family: termina, Helvetica, Arial, sans-serif;
 }
 
 section {
