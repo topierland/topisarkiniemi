@@ -93,7 +93,7 @@ function randomColor() {
     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255), Math.round(ir * 255), Math.round(ig * 255), Math.round(ib * 255)]
 }
 
-let size = Math.min(window.innerWidth, window.innerHeight);
+let size = 1920 //Math.min(window.innerWidth, window.innerHeight);
 let half = size * 0.5;
 let scale = half * 0.3;
 
