@@ -105,6 +105,8 @@ let ctx = canvas.getContext("2d");
 let sin = Math.sin;
 let cos = Math.cos;
 
+let storedColor, storedInt, storedXcolor, storedYcolor, storedA, storedF
+
 function compute() {
     ctx.clearRect(0, 0, size, size);
     let imageData = ctx.getImageData(0, 0, size, size);
@@ -154,6 +156,108 @@ function compute() {
 
     //displays formula
     console.log("A = [" + A.toString() + "];\nF = [" + F + "];");
+    storedColor = color
+    storedInt = int
+    storedXcolor = xColor
+    storedYcolor = yColor
+    storedA = A
+    storedF = F
+}
+
+function changeShape() {
+    ctx.clearRect(0, 0, size, size);
+    let imageData = ctx.getImageData(0, 0, size, size);
+    let bound = Math.PI / 2;
+    let A = [0, 0, 0, 0, 0, 0].map(() => {
+        return (-bound + Math.random() * bound * 2).toFixed(4);
+    });
+    let F = [0, 0, 0, 0, 0, 0].map(() => {
+        return (-Math.PI + Math.random() * Math.PI * 2).toFixed(4);
+    });
+
+    let r = storedColor[0]
+    let g = storedColor[1]
+    let b = storedColor[2]
+
+    let T = 0;
+    let V = 0.001;
+    let x = 0, y = 0, nx, ny;
+
+    let i = size * size;
+    while (i--) {
+        nx = A[0] * sin(F[0] * x);
+        nx += A[1] * cos(F[1] * y);
+        nx += A[2] * sin(F[2] * T);
+
+        ny = A[3] * sin(F[3] * x);
+        ny += A[4] * cos(F[4] * y);
+        ny += A[5] * sin(F[5] * T);
+
+        x = nx;
+        y = ny;
+        T += V;
+
+        // Draw pixels
+        setPixel(imageData, half + x * scale, half + y * scale, r, g, b, storedInt, storedColor, storedYcolor);
+    }
+    ctx.putImageData(imageData, 0, 0);
+
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = `rgb(${storedColor[3]},${storedColor[4]},${storedColor[5]})`;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    storedA = A
+    storedF = F
+}
+
+function changeColor() {
+    ctx.clearRect(0, 0, size, size);
+    let imageData = ctx.getImageData(0, 0, size, size);
+    let A = storedA
+    let F = storedF
+
+    let color = randomColor()
+    let r = color[0]
+    let g = color[1]
+    let b = color[2]
+    // create random interval for colors and which axis they affect
+    let int = randomInterval(1, 255)
+    let xColor = randomInterval(0,2)
+    let yColor = randomInterval(0,2)
+
+    let T = 0;
+    let V = 0.001;
+    let x = 0, y = 0, nx, ny;
+
+    let i = size * size;
+    while (i--) {
+        nx = A[0] * sin(F[0] * x);
+        nx += A[1] * cos(F[1] * y);
+        nx += A[2] * sin(F[2] * T);
+
+        ny = A[3] * sin(F[3] * x);
+        ny += A[4] * cos(F[4] * y);
+        ny += A[5] * sin(F[5] * T);
+
+        x = nx;
+        y = ny;
+        T += V;
+
+        // Draw pixels
+        setPixel(imageData, half + x * scale, half + y * scale, r, g, b, int, xColor, yColor);
+    }
+    ctx.putImageData(imageData, 0, 0);
+    // Add background color
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = `rgb(${color[3]},${color[4]},${color[5]})`;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    //displays formula
+    console.log("A = [" + A.toString() + "];\nF = [" + F + "];");
+    storedColor = color
+    storedInt = int
+    storedXcolor = xColor
+    storedYcolor = yColor
 }
 
 function download() {
@@ -170,10 +274,22 @@ function download() {
 }
 
 let random = document.createElement("button");
-let text = document.createTextNode("Create");
+let text = document.createTextNode("Shuffle");
 random.appendChild(text)
 document.body.appendChild(random);
 random.addEventListener("click", compute, true);
+
+let randomShape = document.createElement("button");
+let randomShapeText = document.createTextNode("Shape Shuffle");
+randomShape.appendChild(randomShapeText)
+document.body.appendChild(randomShape);
+randomShape.addEventListener("click", changeShape, true);
+
+let randomColorButton = document.createElement("button");
+let randomColorText = document.createTextNode("Color Shuffle");
+randomColorButton.appendChild(randomColorText)
+document.body.appendChild(randomColorButton);
+randomColorButton.addEventListener("click", changeColor, true);
 
 let save = document.createElement("button");
 let saveText = document.createTextNode("Download");
