@@ -72,7 +72,9 @@ function randomColor() {
     let h = randomInterval(0, 360) * 0.01;
     let s = randomInterval(42, 98) * 0.01;
     let l = randomInterval(40, 90) * 0.01;
-    let invertH = h*100 + 120 > 360 ? (h*100 - 120) * 0.01 : (h*100 + 120) * 0.01
+    let invertH = randomInterval(0,1) > .5 ?
+        h*100 + 120 > 360 ? (h*100 - 120) * 0.01 : (h*100 + 120) * 0.01 :
+        h*100 - 120 < 0 ? (h*100 + 120) * 0.01 : (h*100 - 120) * 0.01
     let r,g,b,ir,ig,ib
     if (s === 0){
         r = g = b = l;
