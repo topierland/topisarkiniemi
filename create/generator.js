@@ -1,3 +1,9 @@
+let loadingDisplay = document.createElement("p");
+let loadingText = document.createTextNode("Creating...");
+loadingDisplay.appendChild(loadingText);
+loadingDisplay.classList.add("hidden");
+document.body.appendChild(loadingDisplay);
+
 function setPixel(imageData, x, y, r, g, b, int, xColor, yColor) {
     let id = ~~( x%imageData.width + ( imageData.width * ~~(y) ) ) * 4;
     let red, green, blue, xVar, yVar
@@ -107,7 +113,7 @@ let cos = Math.cos;
 
 let storedColor, storedInt, storedXcolor, storedYcolor, storedA, storedF
 
-function compute() {
+function changeAll() {
     ctx.clearRect(0, 0, size, size);
     let imageData = ctx.getImageData(0, 0, size, size);
     let bound = Math.PI / 2;
@@ -273,23 +279,43 @@ function download() {
     }
 }
 
+function loading(action) {
+    loadingDisplay.classList.remove("hidden");
+    setTimeout(function(){
+        switch(action){
+            case "all":
+                changeAll()
+                break;
+            case "shape":
+                changeShape()
+                break;
+            case "color":
+                changeColor()
+                break;
+            default:
+                changeAll()
+        }
+        loadingDisplay.classList.add("hidden");
+    }, 20);
+}
+
 let random = document.createElement("button");
 let text = document.createTextNode("Shuffle");
 random.appendChild(text)
 document.body.appendChild(random);
-random.addEventListener("click", compute, true);
+random.addEventListener("click", ()=>loading("all"), true);
 
 let randomShape = document.createElement("button");
-let randomShapeText = document.createTextNode("Shape Shuffle");
+let randomShapeText = document.createTextNode("New Shape");
 randomShape.appendChild(randomShapeText)
 document.body.appendChild(randomShape);
-randomShape.addEventListener("click", changeShape, true);
+randomShape.addEventListener("click", ()=>loading("shape"), true);
 
 let randomColorButton = document.createElement("button");
-let randomColorText = document.createTextNode("Color Shuffle");
+let randomColorText = document.createTextNode("New Color");
 randomColorButton.appendChild(randomColorText)
 document.body.appendChild(randomColorButton);
-randomColorButton.addEventListener("click", changeColor, true);
+randomColorButton.addEventListener("click", ()=>loading("color"), true);
 
 let save = document.createElement("button");
 let saveText = document.createTextNode("Download");
@@ -297,4 +323,4 @@ save.appendChild(saveText)
 document.body.appendChild(save);
 save.addEventListener("click", download);
 
-compute();
+changeAll();
