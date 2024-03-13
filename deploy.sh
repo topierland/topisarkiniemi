@@ -4,46 +4,40 @@
 REACT_APP_DIR="beer"
 DEPLOY_DIR="deploy_gh_pages"
 
-# Function to handle errors
-error_exit()
-{
-	echo "$1" 1>&2
-	exit 1
-}
-
-# Ensure the script is run from the project root
-if [[ ! -d "$REACT_APP_DIR" || ! -f "CNAME" ]]; then
-    error_exit "Please run this script from the project root and ensure the CNAME file exists."
-fi
+# Ensure script stops at the first error
+set -e
 
 # Step 1: Build the React app
 echo "Building React app..."
-cd $REACT_APP_DIR || error_exit "Failed to enter React app directory."
-yarn install || error_exit "Yarn install failed."
-yarn build || error_exit "React app build failed."
-cd .. || error_exit "Failed to return to project root."
+cd $REACT_APP_DIR
+yarn install || { echo "Failed to install dependencies."; exit 1; }
+yarn build || { echo "React app build failed."; exit 1; }
+cd ..
 
 # Step 2: Prepare the 'gh-pages' directory
 echo "Preparing deployment directory..."
-rm -rf $DEPLOY_DIR || error_exit "Failed to clean deployment directory."
-mkdir $DEPLOY_DIR || error_exit "Failed to create deployment directory."
+rm -rf $DEPLOY_DIR
+mkdir -p $DEPLOY_DIR/$REACT_APP_DIR
 
 # Copy root directory contents to deployment directory
-# Excluding node_modules, .git, .github, and the React app source directory to avoid unnecessary files
-rsync -av --progress ./ $DEPLOY_DIR --exclude node_modules --exclude .git --exclude .github --exclude $REACT_APP_DIR || error_exit "Failed to copy project to deployment directory."
+# Excluding node_modules, .git, the React app source directory, and deploy directory to avoid unnecessary files
+rsync -av --progress ./ $DEPLOY_DIR --exclude node_modules --exclude .git --exclude $REACT_APP_DIR --exclude $DEPLOY_DIR || { echo "Failed to copy project files."; exit 1; }
 
 # Copy the built React app to the deployment directory under 'beer'
-cp -r $REACT_APP_DIR/build/* $DEPLOY_DIR/beer/ || error_exit "Failed to copy built React app."
+cp -r $REACT_APP_DIR/build/* $DEPLOY_DIR/$REACT_APP_DIR/ || { echo "Failed to copy built React app."; exit 1; }
 
-# Ensure CNAME is copied to preserve custom domain configuration
-cp CNAME $DEPLOY_DIR/ || error_exit "Failed to copy CNAME file."
+# Include the CNAME file in the deployment directory, if it exists
+if [ -f CNAME ]; then
+    cp CNAME $DEPLOY_DIR/ || { echo "Failed to copy CNAME file."; exit 1; }
+fi
 
 # Step 3: Deploy to gh-pages
 echo "Deploying to gh-pages..."
-gh-pages -d $DEPLOY_DIR || error_exit "Deployment failed."
+gh-pages -d $DEPLOY_DIR || { echo "Deployment failed."; exit 1; }
 
 # Cleanup
 echo "Cleaning up..."
-rm -rf $DEPLOY_DIR || error_exit "Failed to clean up deployment directory."
+rm -rf $DEPLOY_DIR
 
 echo "Deployment successful!"
+
