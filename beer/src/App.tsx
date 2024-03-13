@@ -1,7 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.scss';
 import baseData from './data/untappd.json';
-import { ReactComponent as Logo } from './logo.svg'
+import { ReactComponent as Star } from './star.svg'
+import { ReactComponent as Starred } from './starred.svg'
 
 interface Beer {
   id: number;
@@ -82,10 +83,18 @@ const App: React.FC = () => {
           ...beer,
           userData: getUserBeerData(brewery.id, beer.id)
         }))
-        .filter(({ name, untappdRating, userData }) => {
-          const matchesSearchQuery = name.toLowerCase().includes(searchQuery.toLowerCase());
+        .filter(({ name, style, details, untappdRating, userData }) => {
+          const searchLower = searchQuery.toLowerCase();
+
+          // Checking if the search query matches any of the specified fields
+          const matchesSearchQuery = name.toLowerCase().includes(searchLower) ||
+              style?.toLowerCase().includes(searchLower) ||
+              details?.toLowerCase().includes(searchLower) ||
+              untappdRating?.toString().includes(searchLower) ||
+              userData?.notes?.toLowerCase().includes(searchLower) ||
+              userData?.userRating?.toString().includes(searchLower);
           const isFavorite = showFavorites ? userData?.favorite === true : true;
-          const userRatingExists = !hasUserRating || userData?.userRating !== undefined;
+          const userRatingExists = !hasUserRating || (userData?.userRating !== undefined && userData?.userRating !== 0 && userData?.userRating !== null);
           const untappdRatingCondition = showBeersWithoutUntappdRating
               ? untappdRating === '0'
               : (typeof minUntappdRating === 'number' && minUntappdRating !== 0
@@ -239,7 +248,12 @@ const App: React.FC = () => {
                         const userData = userBeerData[compositeKey] || {};
                         return (
                             <div key={compositeKey} className={"beer-item"}>
-                              <h3>{beer.name}</h3>
+                              <h3>
+                                {beer.name}
+                                <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
+                                  {userData.favorite ? <Starred/> : <Star/>}
+                                </button>
+                              </h3>
                               <p>Style: {beer.style}</p>
                               <p>Details: {beer.details}</p>
                               <p>Untappd Rating: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
@@ -257,9 +271,6 @@ const App: React.FC = () => {
                                   value={userData.notes || ''}
                                   onChange={(e) => handleNotesChange(brewery.id, beer.id, e.target.value)}
                               />
-                              <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
-                                {userData.favorite ? 'Starred' : 'Star'}
-                              </button>
                             </div>
                         );
                       })}

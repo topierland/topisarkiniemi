@@ -77,9 +77,22 @@ body {
 
 .beer-item {
   border-radius: $border-radius-default;
-  padding: 20px;
+  padding: 30px 20px 5px 20px;
   h3 {
     margin-bottom: 12px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    button {
+      width: 30px;
+      border: 0;
+      padding: 0;
+      margin: -5px 0 0 20px;
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
   }
 }
 
@@ -96,19 +109,6 @@ input[type="number"], textarea, select, button {
 button {
   background-color: transparent;
   cursor: pointer;
-  border: 1px solid $accent-color;
-
-  &:hover {
-    color: $accent-color;
-  }
-
-  &.starred {
-    background-color: $accent-color;
-    &:hover {
-      background-color: $accent-color-hover;
-      color: white;
-    }
-  }
 }
 
 input[type="checkbox"] {
