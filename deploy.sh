@@ -33,7 +33,7 @@ fi
 
 # Step 3: Deploy to gh-pages
 echo "Deploying to gh-pages..."
-./node_modules/.bin/gh-pages -d $DEPLOY_DIR || { echo "Deployment failed."; exit 1; }
+npx gh-pages -d $DEPLOY_DIR || { echo "Deployment failed."; exit 1; }
 
 # Cleanup
 echo "Cleaning up..."
