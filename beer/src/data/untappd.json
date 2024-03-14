@@ -50,28 +50,28 @@
         "name": "Hoperation Center",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "7.5% ABV • N/A IBU •",
-        "untappdRating": "4.01273"
+        "untappdRating": "4.00348"
       },
       {
         "id": 2,
         "name": "Brothers In Hops",
         "style": "IPA - New Zealand",
         "details": "7.8% ABV • N/A IBU •",
-        "untappdRating": "3.84555"
+        "untappdRating": "3.8447"
       },
       {
         "id": 3,
         "name": "Chain of Command",
         "style": "IPA - Imperial / Double",
         "details": "8.5% ABV • 90 IBU •",
-        "untappdRating": "3.72803"
+        "untappdRating": "3.72923"
       },
       {
         "id": 4,
         "name": "Coffeecat",
         "style": "Stout - Oatmeal",
         "details": "6.5% ABV • N/A IBU •",
-        "untappdRating": "3.71838"
+        "untappdRating": "3.71852"
       },
       {
         "id": 5,
@@ -85,7 +85,7 @@
         "name": "Friend Or Foe? Lagavulin BA",
         "style": "Smoked Beer",
         "details": "12% ABV • N/A IBU •",
-        "untappdRating": "4.20169"
+        "untappdRating": "4.20243"
       },
       {
         "id": 7,
@@ -131,21 +131,21 @@
         "name": "Dimmu Borgir 30th Anniversary Hoppy Black Metal Lager",
         "style": "Lager - Dark",
         "details": "5.2% ABV • N/A IBU •",
-        "untappdRating": "3.24178"
+        "untappdRating": "3.24142"
       },
       {
         "id": 2,
         "name": "SHORYUKEN FRUITSPLOSION 2.0",
         "style": "Sour - Fruited Berliner Weisse",
         "details": "4.7% ABV • N/A IBU •",
-        "untappdRating": "3.85147"
+        "untappdRating": "3.85141"
       },
       {
         "id": 3,
         "name": "I Need Sour",
         "style": "Sour - Fruited Berliner Weisse",
         "details": "5.8% ABV • N/A IBU •",
-        "untappdRating": "4.13468"
+        "untappdRating": "4.13369"
       },
       {
         "id": 4,
@@ -166,14 +166,14 @@
         "name": "MISSILE TOE 2023",
         "style": "Sour - Fruited Berliner Weisse",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "3.84536"
+        "untappdRating": "3.84549"
       },
       {
         "id": 7,
         "name": "EyeGuy - Imperial Tutti Frutti Sorbet",
         "style": "Sour - Fruited Berliner Weisse",
         "details": "8% ABV • N/A IBU •",
-        "untappdRating": "3.75993"
+        "untappdRating": "3.75953"
       },
       {
         "id": 8,
@@ -187,7 +187,7 @@
         "name": "I P A Lot #5",
         "style": "IPA - New England / Hazy",
         "details": "7% ABV • N/A IBU •",
-        "untappdRating": "3.96734"
+        "untappdRating": "3.96833"
       },
       {
         "id": 10,
@@ -201,34 +201,34 @@
         "name": "DIE HARD 2 Yippee-Ka-Yey",
         "style": "Stout - Imperial / Double",
         "details": "10% ABV • N/A IBU •",
-        "untappdRating": "3.67344"
+        "untappdRating": "3.67001"
       },
       {
         "id": 12,
-        "name": "Satanic Panic BARREL AGED 4-YEARS OnlyCans",
-        "style": "Stout - Imperial / Double",
-        "details": "11.3% ABV • N/A IBU •",
-        "untappdRating": "0"
-      },
-      {
-        "id": 13,
         "name": "Chocolate Salty Bourbon Balls BARREL AGED 4-YEARS OnlyCans",
         "style": "Stout - Imperial / Double",
         "details": "11.7% ABV • N/A IBU •",
         "untappdRating": "0"
       },
       {
-        "id": 14,
-        "name": "Old Maple Pecanisher BARREL AGED 4-YEARS OnlyCans",
+        "id": 13,
+        "name": "S’morbidly Obese BARREL AGED 4-YEARS OnlyCans",
         "style": "Stout - Imperial / Double",
-        "details": "11.5% ABV • N/A IBU •",
+        "details": "11.6% ABV • N/A IBU •",
+        "untappdRating": "0"
+      },
+      {
+        "id": 14,
+        "name": "Satanic Panic BARREL AGED 4-YEARS OnlyCans",
+        "style": "Stout - Imperial / Double",
+        "details": "11.3% ABV • N/A IBU •",
         "untappdRating": "0"
       },
       {
         "id": 15,
-        "name": "S’morbidly Obese BARREL AGED 4-YEARS OnlyCans",
+        "name": "Old Maple Pecanisher BARREL AGED 4-YEARS OnlyCans",
         "style": "Stout - Imperial / Double",
-        "details": "11.6% ABV • N/A IBU •",
+        "details": "11.5% ABV • N/A IBU •",
         "untappdRating": "0"
       },
       {
@@ -236,7 +236,7 @@
         "name": "Passion Icon",
         "style": "Non-Alcoholic Beer - Sour",
         "details": "0.5% ABV • N/A IBU •",
-        "untappdRating": "3.44847"
+        "untappdRating": "3.4485"
       }
     ]
   },
@@ -285,56 +285,56 @@
         "name": "Pils",
         "style": "Pilsner - German",
         "details": "5% ABV • N/A IBU •",
-        "untappdRating": "3.21595"
+        "untappdRating": "3.21597"
       },
       {
         "id": 2,
         "name": "Mango Mango Mango",
         "style": "Sour - Fruited",
         "details": "4.5% ABV • N/A IBU •",
-        "untappdRating": "3.76401"
+        "untappdRating": "3.764"
       },
       {
         "id": 3,
         "name": "Tropic Thunder",
         "style": "Sour - Fruited",
         "details": "4.5% ABV • N/A IBU •",
-        "untappdRating": "3.82706"
+        "untappdRating": "3.82703"
       },
       {
         "id": 4,
         "name": "Citramazing",
         "style": "IPA - New England / Hazy",
         "details": "6.5% ABV • N/A IBU •",
-        "untappdRating": "3.90292"
+        "untappdRating": "3.90263"
       },
       {
         "id": 5,
         "name": "Lux",
         "style": "IPA - American",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "3.58849"
+        "untappdRating": "3.58851"
       },
       {
         "id": 6,
         "name": "Bubble",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "8% ABV • N/A IBU •",
-        "untappdRating": "3.8808"
+        "untappdRating": "3.87895"
       },
       {
         "id": 7,
         "name": "Gummy",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "8% ABV • N/A IBU •",
-        "untappdRating": "3.89934"
+        "untappdRating": "3.90745"
       },
       {
         "id": 8,
         "name": "Big Black Apple",
         "style": "Sour - Fruited Berliner Weisse",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "3.20046"
+        "untappdRating": "3.20058"
       },
       {
         "id": 9,
@@ -348,14 +348,14 @@
         "name": "Coconut Beam",
         "style": "Stout - Imperial / Double Pastry",
         "details": "16.3% ABV • N/A IBU •",
-        "untappdRating": "4.2865"
+        "untappdRating": "4.28945"
       },
       {
         "id": 11,
         "name": "Mega",
         "style": "Stout - Imperial / Double",
         "details": "15% ABV • N/A IBU •",
-        "untappdRating": "4.05909"
+        "untappdRating": "4.05973"
       }
     ]
   },
@@ -368,7 +368,7 @@
         "name": "Friskier Slabman",
         "style": "Barleywine - Other",
         "details": "11.9% ABV • 54 IBU •",
-        "untappdRating": "3.7213"
+        "untappdRating": "3.72366"
       },
       {
         "id": 2,
@@ -397,6 +397,13 @@
         "style": "Farmhouse Ale - Saison",
         "details": "7.6% ABV • 15 IBU •",
         "untappdRating": "3.09589"
+      },
+      {
+        "id": 6,
+        "name": "Twinfold Hoplaar",
+        "style": "Wild Ale - Other",
+        "details": "5.5% ABV • 5 IBU •",
+        "untappdRating": "0"
       }
     ]
   },
@@ -430,7 +437,7 @@
         "name": "Humalove VIII: Giggle Machine",
         "style": "Sour - Fruited",
         "details": "9.5% ABV • N/A IBU •",
-        "untappdRating": "3.55238"
+        "untappdRating": "3.54766"
       },
       {
         "id": 5,
@@ -499,14 +506,14 @@
         "name": "Husky IPA",
         "style": "IPA - American",
         "details": "5.5% ABV • N/A IBU •",
-        "untappdRating": "3.16899"
+        "untappdRating": "3.16886"
       },
       {
         "id": 2,
         "name": "Dragon Sour",
         "style": "Sour - Fruited",
         "details": "4% ABV • 10 IBU •",
-        "untappdRating": "3.29359"
+        "untappdRating": "3.28978"
       },
       {
         "id": 3,
@@ -534,14 +541,14 @@
         "name": "Husky Amber Ale",
         "style": "Red Ale - American Amber / Red",
         "details": "5.3% ABV • N/A IBU •",
-        "untappdRating": "3.19562"
+        "untappdRating": "3.19693"
       },
       {
         "id": 7,
         "name": "Husky Dark Lager",
         "style": "Lager - Dark",
         "details": "5.5% ABV • N/A IBU •",
-        "untappdRating": "3.41667"
+        "untappdRating": "3.36842"
       },
       {
         "id": 8,
@@ -649,28 +656,28 @@
         "name": "Under Pressure",
         "style": "IPA - New England / Hazy",
         "details": "7.4% ABV • N/A IBU •",
-        "untappdRating": "4.06616"
+        "untappdRating": "4.0669"
       },
       {
         "id": 5,
         "name": "On Melancholy Hill",
         "style": "IPA - Triple New England / Hazy",
         "details": "9.7% ABV • N/A IBU •",
-        "untappdRating": "4.25595"
+        "untappdRating": "4.2612"
       },
       {
         "id": 6,
         "name": "Raining Blood",
         "style": "Sour - Fruited",
         "details": "6.2% ABV • N/A IBU •",
-        "untappdRating": "3.94714"
+        "untappdRating": "3.94292"
       },
       {
         "id": 7,
         "name": "Pigs On the Wing",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "7.8% ABV • N/A IBU •",
-        "untappdRating": "4.16838"
+        "untappdRating": "4.1686"
       }
     ]
   },
@@ -683,7 +690,7 @@
         "name": "Helraiser",
         "style": "Belgian Dubbel",
         "details": "7.5% ABV • 30 IBU •",
-        "untappdRating": "3.45135"
+        "untappdRating": "3.46829"
       },
       {
         "id": 2,
@@ -711,21 +718,21 @@
         "name": "Papi Mango",
         "style": "Sour - Fruited",
         "details": "5.4% ABV • 12 IBU •",
-        "untappdRating": "3.60596"
+        "untappdRating": "3.60474"
       },
       {
         "id": 6,
         "name": "Parallax",
         "style": "Stout - Imperial / Double",
         "details": "8.5% ABV • 47 IBU •",
-        "untappdRating": "3.63864"
+        "untappdRating": "3.63261"
       },
       {
         "id": 7,
         "name": "Holy Ghost",
         "style": "IPA - Belgian",
         "details": "6% ABV • 60 IBU •",
-        "untappdRating": "3.40526"
+        "untappdRating": "3.39649"
       }
     ]
   },
@@ -766,7 +773,7 @@
         "name": "Tart Imperial Berry Gose",
         "style": "Sour - Other Gose",
         "details": "8% ABV • 10 IBU •",
-        "untappdRating": "3.66346"
+        "untappdRating": "3.65741"
       },
       {
         "id": 6,
@@ -780,14 +787,14 @@
         "name": "Varusteleka Imperial Stout",
         "style": "Stout - Imperial / Double",
         "details": "10% ABV • N/A IBU •",
-        "untappdRating": "3.62664"
+        "untappdRating": "3.62655"
       },
       {
         "id": 8,
         "name": "Orion Kyrö Barrel Aged Imperial Stout",
         "style": "Stout - Imperial / Double",
         "details": "11.5% ABV • 30 IBU •",
-        "untappdRating": "3.97813"
+        "untappdRating": "3.97206"
       },
       {
         "id": 9,
@@ -807,14 +814,14 @@
         "name": "6 Epic Years",
         "style": "Stout - Imperial / Double",
         "details": "12% ABV • N/A IBU •",
-        "untappdRating": "3.74302"
+        "untappdRating": "3.75556"
       },
       {
         "id": 2,
         "name": "Takomo",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "8% ABV • 40 IBU •",
-        "untappdRating": "3.95465"
+        "untappdRating": "3.95384"
       },
       {
         "id": 3,
@@ -828,7 +835,7 @@
         "name": "Liquorice Tonka Bean Raspberry Sour",
         "style": "Sour - Fruited",
         "details": "5% ABV • N/A IBU •",
-        "untappdRating": "3.8427"
+        "untappdRating": "3.84132"
       },
       {
         "id": 5,
@@ -842,21 +849,21 @@
         "name": "Riptide",
         "style": "IPA - American",
         "details": "8.5% ABV • 80 IBU •",
-        "untappdRating": "3.66875"
+        "untappdRating": "3.66553"
       },
       {
         "id": 7,
         "name": "MOAB - Mother of All Beers 2024",
         "style": "IPA - Triple New England / Hazy",
         "details": "10% ABV • 98 IBU •",
-        "untappdRating": "4.02008"
+        "untappdRating": "4.01992"
       },
       {
         "id": 8,
-        "name": "Pineapple Coconut Sour",
+        "name": "Guava Pineapple Sour",
         "style": "Sour - Smoothie / Pastry",
         "details": "5% ABV • N/A IBU •",
-        "untappdRating": "3.68715"
+        "untappdRating": "3.5946"
       },
       {
         "id": 9,
@@ -869,7 +876,7 @@
         "id": 10,
         "name": "Chocolate Porter",
         "style": "Porter - Other",
-        "details": "N/A ABV • N/A IBU •",
+        "details": "6.2% ABV • N/A IBU •",
         "untappdRating": "0"
       },
       {
@@ -878,13 +885,6 @@
         "style": "Stout - Imperial / Double",
         "details": "12% ABV • N/A IBU •",
         "untappdRating": "0"
-      },
-      {
-        "id": 12,
-        "name": "Spielzeuger Pils",
-        "style": "Pilsner - German",
-        "details": "5.2% ABV • 30 IBU •",
-        "untappdRating": "3.37121"
       }
     ]
   },
@@ -897,7 +897,7 @@
         "name": "Kamala Lager",
         "style": "Lager - Other",
         "details": "5.5% ABV • 27 IBU •",
-        "untappdRating": "3.40282"
+        "untappdRating": "3.4016"
       },
       {
         "id": 2,
@@ -911,7 +911,7 @@
         "name": "West Coast Road Trip",
         "style": "IPA - American",
         "details": "6.3% ABV • 66 IBU •",
-        "untappdRating": "3.51471"
+        "untappdRating": "3.51447"
       },
       {
         "id": 4,
@@ -932,14 +932,14 @@
         "name": "Mangos with Passion",
         "style": "Sour - Fruited",
         "details": "4.6% ABV • N/A IBU •",
-        "untappdRating": "3.43302"
+        "untappdRating": "3.43312"
       },
       {
         "id": 7,
         "name": "Coffee Break",
         "style": "Porter - Coffee",
         "details": "5.5% ABV • 24 IBU •",
-        "untappdRating": "3.17277"
+        "untappdRating": "3.16373"
       },
       {
         "id": 8,
@@ -959,14 +959,14 @@
         "name": "zephyr",
         "style": "IPA - American",
         "details": "5.5% ABV • 51 IBU •",
-        "untappdRating": "3.4375"
+        "untappdRating": "3.44231"
       },
       {
         "id": 2,
         "name": "jubilee",
         "style": "Sour - Smoothie / Pastry",
         "details": "8.6% ABV • N/A IBU •",
-        "untappdRating": "3.39244"
+        "untappdRating": "3.37356"
       },
       {
         "id": 3,
@@ -987,7 +987,7 @@
         "name": "val",
         "style": "IPA - New England / Hazy",
         "details": "5% ABV • N/A IBU •",
-        "untappdRating": "3.33214"
+        "untappdRating": "3.32877"
       },
       {
         "id": 6,
@@ -1032,7 +1032,7 @@
         "name": "Field Recordings X Noita Muscat IPA",
         "style": "IPA - Fruited",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "3.55615"
+        "untappdRating": "3.55563"
       }
     ]
   },
@@ -1045,35 +1045,35 @@
         "name": "Punk AF",
         "style": "Non-Alcoholic Beer - IPA",
         "details": "0.5% ABV • N/A IBU •",
-        "untappdRating": "3.02545"
+        "untappdRating": "3.02054"
       },
       {
         "id": 2,
         "name": "Implosion",
         "style": "Non-Alcoholic Beer - IPA",
         "details": "0.3% ABV • 29 IBU •",
-        "untappdRating": "3.1976"
+        "untappdRating": "3.19796"
       },
       {
         "id": 3,
         "name": "Passion Icon",
         "style": "Non-Alcoholic Beer - Sour",
         "details": "0.5% ABV • N/A IBU •",
-        "untappdRating": "3.44847"
+        "untappdRating": "3.4485"
       },
       {
         "id": 4,
         "name": "Selfish Games Non Alcoholic IPA",
         "style": "Non-Alcoholic Beer - IPA",
         "details": "0.5% ABV • N/A IBU •",
-        "untappdRating": "3.39818"
+        "untappdRating": "3.39679"
       },
       {
         "id": 5,
         "name": "Nana",
         "style": "Non-Alcoholic Beer - Sour",
         "details": "0.5% ABV • 20 IBU •",
-        "untappdRating": "3.95357"
+        "untappdRating": "3.92948"
       },
       {
         "id": 6,
@@ -1087,28 +1087,28 @@
         "name": "Forgot To Take My Pils",
         "style": "Non-Alcoholic Beer - Lager",
         "details": "0.5% ABV • N/A IBU •",
-        "untappdRating": "3.01603"
+        "untappdRating": "3.0117"
       },
       {
         "id": 8,
         "name": "Wild Juice Chase",
         "style": "Non-Alcoholic Beer - Pale Ale",
         "details": "0.5% ABV • N/A IBU •",
-        "untappdRating": "3.39695"
+        "untappdRating": "3.38922"
       },
       {
         "id": 9,
         "name": "Low Life",
         "style": "Non-Alcoholic Beer - Lager",
         "details": "0.5% ABV • 10 IBU •",
-        "untappdRating": "3.38664"
+        "untappdRating": "3.37721"
       },
       {
         "id": 10,
         "name": "Pie PA - Mango and Peach IPA",
         "style": "Non-Alcoholic Beer - IPA",
         "details": "0.5% ABV • N/A IBU •",
-        "untappdRating": "3.59669"
+        "untappdRating": "3.60176"
       },
       {
         "id": 11,
@@ -1127,56 +1127,56 @@
         "name": "Full Fathom 5",
         "style": "Porter - Coffee",
         "details": "5.5% ABV • 45 IBU •",
-        "untappdRating": "3.61548"
+        "untappdRating": "3.61547"
       },
       {
         "id": 2,
         "name": "Atlantis",
         "style": "Pale Ale - American",
         "details": "4.1% ABV • N/A IBU •",
-        "untappdRating": "3.58224"
+        "untappdRating": "3.58259"
       },
       {
         "id": 3,
         "name": "North X Põhjala Imperial Stout",
         "style": "Stout - Imperial / Double",
         "details": "9% ABV • N/A IBU •",
-        "untappdRating": "4.11612"
+        "untappdRating": "4.11566"
       },
       {
         "id": 4,
         "name": "NORTH X HOPPY PEOPLE",
         "style": "IPA - New England / Hazy",
         "details": "6.4% ABV • N/A IBU •",
-        "untappdRating": "3.94048"
+        "untappdRating": "3.94"
       },
       {
         "id": 5,
         "name": "Transmission",
         "style": "IPA - American",
         "details": "6.9% ABV • 51 IBU •",
-        "untappdRating": "3.81654"
+        "untappdRating": "3.81652"
       },
       {
         "id": 6,
         "name": "North X Anthology Sicilian Lemon Gose",
         "style": "Sour - Fruited Gose",
         "details": "4.2% ABV • N/A IBU •",
-        "untappdRating": "3.62295"
+        "untappdRating": "3.62347"
       },
       {
         "id": 7,
         "name": "Songbird",
         "style": "IPA - New England / Hazy",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "3.74662"
+        "untappdRating": "3.74668"
       },
       {
         "id": 8,
         "name": "Sputnik",
         "style": "Pale Ale - American",
         "details": "5% ABV • 33 IBU •",
-        "untappdRating": "3.61119"
+        "untappdRating": "3.6112"
       }
     ]
   },
@@ -1224,7 +1224,7 @@
         "name": "Mylläri Miami NEIPA",
         "style": "IPA - New England / Hazy",
         "details": "5.5% ABV • N/A IBU •",
-        "untappdRating": "3.45419"
+        "untappdRating": "3.45403"
       },
       {
         "id": 7,
@@ -1252,7 +1252,7 @@
         "name": "Mylläri Tumma Lager",
         "style": "Lager - Dark",
         "details": "4.7% ABV • 13 IBU •",
-        "untappdRating": "3.2436"
+        "untappdRating": "3.24512"
       }
     ]
   },
@@ -1335,7 +1335,7 @@
         "name": "Gose With Raspberries",
         "style": "Sour - Fruited Gose",
         "details": "3.5% ABV • 8 IBU •",
-        "untappdRating": "3.51444"
+        "untappdRating": "3.51427"
       },
       {
         "id": 12,
@@ -1356,7 +1356,7 @@
         "name": "Coconut Milk Stout",
         "style": "Stout - Milk / Sweet",
         "details": "4.7% ABV • 19 IBU •",
-        "untappdRating": "3.43698"
+        "untappdRating": "3.43671"
       },
       {
         "id": 15,
@@ -1376,35 +1376,35 @@
         "name": "Brainzilla",
         "style": "Lager - Helles",
         "details": "5% ABV • N/A IBU •",
-        "untappdRating": "3.28322"
+        "untappdRating": "3.28232"
       },
       {
         "id": 2,
         "name": "Riwaka Barbara",
         "style": "Pilsner - New Zealand",
         "details": "5% ABV • N/A IBU •",
-        "untappdRating": "3.43688"
+        "untappdRating": "3.43808"
       },
       {
         "id": 3,
         "name": "Firestarter",
         "style": "IPA - New England / Hazy",
         "details": "7% ABV • 37 IBU •",
-        "untappdRating": "3.76129"
+        "untappdRating": "3.75995"
       },
       {
         "id": 4,
         "name": "Do the Monkey Feat Salama",
         "style": "IPA - New England / Hazy",
         "details": "6.8% ABV • 59 IBU •",
-        "untappdRating": "4.00528"
+        "untappdRating": "4.00525"
       },
       {
         "id": 5,
         "name": "Neon Beast",
         "style": "IPA - New England / Hazy",
         "details": "6% ABV • 94 IBU •",
-        "untappdRating": "3.80303"
+        "untappdRating": "3.80316"
       },
       {
         "id": 6,
@@ -1418,7 +1418,7 @@
         "name": "BananaBanaan",
         "style": "Stout - Imperial / Double Pastry",
         "details": "10.4% ABV • N/A IBU •",
-        "untappdRating": "3.8186"
+        "untappdRating": "3.82021"
       },
       {
         "id": 8,
@@ -1432,7 +1432,7 @@
         "name": "Neo-Elektro",
         "style": "IPA - New England / Hazy",
         "details": "6.5% ABV • 43 IBU •",
-        "untappdRating": "3.66858"
+        "untappdRating": "3.66849"
       }
     ]
   },
@@ -1445,7 +1445,7 @@
         "name": "Out of Office",
         "style": "IPA - Session",
         "details": "4.5% ABV • 55 IBU •",
-        "untappdRating": "3.43105"
+        "untappdRating": "3.43101"
       },
       {
         "id": 2,
@@ -1459,7 +1459,7 @@
         "name": "Blackberry Liquorice Sour",
         "style": "Sour - Fruited",
         "details": "5.5% ABV • N/A IBU •",
-        "untappdRating": "3.20038"
+        "untappdRating": "3.22222"
       },
       {
         "id": 4,
@@ -1487,14 +1487,14 @@
         "name": "Cookies With Dinos",
         "style": "IPA - New England / Hazy",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "3.53513"
+        "untappdRating": "3.5354"
       },
       {
         "id": 8,
         "name": "Hybrid Treats vol.3: Estonian Apple Pie & Vanilla Custard",
         "style": "Stout - Imperial / Double Pastry",
         "details": "12% ABV • 33 IBU •",
-        "untappdRating": "4.03586"
+        "untappdRating": "4.03611"
       },
       {
         "id": 9,
@@ -1515,7 +1515,7 @@
         "name": "The Birthday Afterlife",
         "style": "Porter - Imperial / Double Baltic",
         "details": "10.4% ABV • N/A IBU •",
-        "untappdRating": "3.7288"
+        "untappdRating": "3.73071"
       },
       {
         "id": 12,
@@ -1535,21 +1535,21 @@
         "name": "Kaski Mustakaura",
         "style": "Lager - Dark",
         "details": "5% ABV • N/A IBU •",
-        "untappdRating": "3.30445"
+        "untappdRating": "3.30469"
       },
       {
         "id": 2,
         "name": "Kaski Kylmäsavulager",
         "style": "Smoked Beer",
         "details": "5% ABV • 22 IBU •",
-        "untappdRating": "3.24447"
+        "untappdRating": "3.24439"
       },
       {
         "id": 3,
         "name": "Kaski Musta Savu",
         "style": "Smoked Beer",
         "details": "4.6% ABV • N/A IBU •",
-        "untappdRating": "3.35887"
+        "untappdRating": "3.35823"
       },
       {
         "id": 4,
@@ -1563,7 +1563,7 @@
         "name": "Kaski Punainempa",
         "style": "Red Ale - Other",
         "details": "4.6% ABV • 50 IBU •",
-        "untappdRating": "3.20617"
+        "untappdRating": "3.20829"
       },
       {
         "id": 6,
@@ -1577,7 +1577,7 @@
         "name": "Kaski Pils",
         "style": "Pilsner - Other",
         "details": "5% ABV • 41 IBU •",
-        "untappdRating": "3.18012"
+        "untappdRating": "3.18005"
       },
       {
         "id": 8,
@@ -1604,14 +1604,14 @@
         "name": "Phantom of the Uncle",
         "style": "IPA - New England / Hazy",
         "details": "7.4% ABV • 58 IBU •",
-        "untappdRating": "3.64085"
+        "untappdRating": "3.62706"
       },
       {
         "id": 2,
         "name": "Prost! For Uncles",
         "style": "Lager - Dortmunder / Export",
         "details": "5.5% ABV • N/A IBU •",
-        "untappdRating": "3.18085"
+        "untappdRating": "3.17977"
       },
       {
         "id": 3,
@@ -1632,7 +1632,7 @@
         "name": "Fruit Basket - Mango-Passion-Tomato",
         "style": "Sour - Fruited",
         "details": "5.3% ABV • N/A IBU •",
-        "untappdRating": "3.49603"
+        "untappdRating": "3.49628"
       },
       {
         "id": 6,
@@ -1666,7 +1666,7 @@
         "name": "Valhallan Katajainen Kansa",
         "style": "Kellerbier / Zwickelbier",
         "details": "5.5% ABV • 25 IBU •",
-        "untappdRating": "3.42969"
+        "untappdRating": "3.45588"
       },
       {
         "id": 3,
@@ -1729,7 +1729,7 @@
         "name": "Dream Team",
         "style": "IPA - Black / Cascadian Dark Ale",
         "details": "8% ABV • 80 IBU •",
-        "untappdRating": "3.60949"
+        "untappdRating": "3.60612"
       },
       {
         "id": 12,
@@ -1847,49 +1847,49 @@
         "name": "Clearest Echoes",
         "style": "Lager - Other",
         "details": "4.5% ABV • N/A IBU •",
-        "untappdRating": "3.7615"
+        "untappdRating": "3.76386"
       },
       {
         "id": 2,
         "name": "Flat Beat",
         "style": "IPA - New England / Hazy",
         "details": "6.8% ABV • N/A IBU •",
-        "untappdRating": "3.76985"
+        "untappdRating": "3.76655"
       },
       {
         "id": 3,
         "name": "Only Shallow",
         "style": "IPA - New England / Hazy",
         "details": "6.8% ABV • N/A IBU •",
-        "untappdRating": "3.87049"
+        "untappdRating": "3.86392"
       },
       {
         "id": 4,
         "name": "Promise Everything",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "8.2% ABV • N/A IBU •",
-        "untappdRating": "4.01352"
+        "untappdRating": "4.01298"
       },
       {
         "id": 5,
         "name": "Sky Burial",
         "style": "IPA - American",
         "details": "6.4% ABV • N/A IBU •",
-        "untappdRating": "3.86508"
+        "untappdRating": "3.86656"
       },
       {
         "id": 6,
         "name": "Disco Mystic",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "8% ABV • N/A IBU •",
-        "untappdRating": "4.03646"
+        "untappdRating": "4.03574"
       },
       {
         "id": 7,
         "name": "Immolator",
         "style": "Bock - Doppelbock",
         "details": "8.6% ABV • N/A IBU •",
-        "untappdRating": "3.69426"
+        "untappdRating": "3.69453"
       },
       {
         "id": 8,
@@ -1921,28 +1921,28 @@
         "name": "BANANANANANANANANANANANANANANANANANANAS",
         "style": "Stout - Imperial / Double Pastry",
         "details": "10.4% ABV • 30 IBU •",
-        "untappdRating": "3.99765"
+        "untappdRating": "4.00516"
       },
       {
         "id": 2,
         "name": "G IS FOR GELATO",
         "style": "Stout - Imperial / Double Pastry",
         "details": "10.4% ABV • 30 IBU •",
-        "untappdRating": "4.18279"
+        "untappdRating": "4.17759"
       },
       {
         "id": 3,
         "name": "WILL IT FLOAT #2",
         "style": "Sour - Smoothie / Pastry",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "3.91276"
+        "untappdRating": "3.92119"
       },
       {
         "id": 4,
         "name": "WILL IT FLOAT #1",
         "style": "Sour - Smoothie / Pastry",
         "details": "6% ABV • N/A IBU •",
-        "untappdRating": "4.1557"
+        "untappdRating": "4.15355"
       },
       {
         "id": 5,
@@ -1956,28 +1956,28 @@
         "name": "Squeezing Nectarines",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "8.4% ABV • 10 IBU •",
-        "untappdRating": "4.11576"
+        "untappdRating": "4.12101"
       },
       {
         "id": 7,
         "name": "WESTIE FOREVER",
         "style": "IPA - Triple New England / Hazy",
         "details": "10% ABV • 90 IBU •",
-        "untappdRating": "4.11583"
+        "untappdRating": "4.116"
       },
       {
         "id": 8,
         "name": "The Illusion of Safety Batch 2",
         "style": "Stout - Imperial / Double Pastry",
         "details": "10.5% ABV • 30 IBU •",
-        "untappdRating": "4.45"
+        "untappdRating": "4.44659"
       },
       {
         "id": 9,
         "name": "The Required Amount of Hops Is...",
         "style": "IPA - Imperial / Double New England / Hazy",
         "details": "8.4% ABV • 10 IBU •",
-        "untappdRating": "4.10106"
+        "untappdRating": "4.10099"
       }
     ]
   }
