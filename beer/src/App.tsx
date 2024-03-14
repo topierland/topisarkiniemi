@@ -163,7 +163,7 @@ const App: React.FC = () => {
 
   const areFiltersActive = searchQuery !== '' || showFavorites || hasUserRating || (parseFloat(minUntappdRating) !== 0) || showBeersWithoutUntappdRating;
   const visibleBreweries = areFiltersActive ? filteredAndSortedBreweries.filter(brewery => brewery.beers.length > 0) : filteredAndSortedBreweries;
-
+  const beerCount = visibleBreweries.reduce((acc, brewery) => acc + brewery.beers.length, 0);
   const [filtersExpanded, setFiltersExpanded] = useState(false)
 
   const isAnyFilterActive = searchQuery !== '' ||
@@ -171,6 +171,24 @@ const App: React.FC = () => {
       parseFloat(minUntappdRating) > 0 ||
       hasUserRating ||
       showBeersWithoutUntappdRating
+
+  const allBeers = breweries.flatMap(brewery =>
+      brewery.beers.map(beer => ({
+        brewery: brewery?.name,
+        ...beer,
+        userData: getUserBeerData(brewery.id, beer.id)
+      }))
+  );
+
+  const topUntappdRatedBeers = allBeers
+      .filter(beer => beer.untappdRating) // Filter out beers without an Untappd rating
+      .sort((a, b) => parseFloat(b.untappdRating || '0') - parseFloat(a.untappdRating || '0')) // Sort by Untappd rating
+      .slice(0, 10); // Get top 10
+
+  const topUserRatedBeers = allBeers
+      .filter(beer => beer.userData?.userRating) // Filter out beers without a user rating
+      .sort((a, b) => parseFloat(b.userData?.userRating || '0') - parseFloat(a.userData?.userRating || '0')) // Sort by user rating
+      .slice(0, 10); // Get top 10
 
   return (
       <div>
@@ -239,6 +257,7 @@ const App: React.FC = () => {
           </button>
         </div>
         <div id={"beers"}>
+          <small>{beerCount} beers in total</small>
           {visibleBreweries?.length < 1 &&
               <div className={"brewery-item"}>
                 <h2>Fuck. No beers to show.</h2>
@@ -258,7 +277,7 @@ const App: React.FC = () => {
                         return (
                             <div key={compositeKey} className={"beer-item"}>
                               <h3>
-                                {beer.name}
+                                <span>{beer.name}</span>
                                 <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
                                   {userData.favorite ? <Starred/> : <Star/>}
                                 </button>
@@ -290,6 +309,31 @@ const App: React.FC = () => {
               }
           )
         }
+        </div>
+        <div id={"top-lists"}>
+          <div>
+            <h3>My top rated</h3>
+            {topUserRatedBeers?.length < 1 &&
+            <p>No beers rated.</p>
+            }
+            <ol>
+              {topUserRatedBeers.map((beer,i) => (
+                  <li key={i}>
+                    {beer.name} <b>{parseFloat(beer?.userData?.userRating || '0').toFixed(2)}</b><br/><small>{beer.brewery}<br/>{beer.style} {beer.details} {beer?.untappdRating ? "Untappd: " + parseFloat(beer?.untappdRating || '0').toFixed(2) : ""}</small>
+                  </li>
+              ))}
+            </ol>
+          </div>
+          <div>
+            <h3>Top rated on Untappd</h3>
+            <ol>
+              {topUntappdRatedBeers.map((beer,i)=>(
+                  <li key={i}>
+                    {beer.name} <b>{parseFloat(beer.untappdRating || '0').toFixed(2)}</b><br/><small>{beer.brewery}<br/>{beer.style} {beer.details} {beer?.userData?.userRating ? "My rating: " + parseFloat(beer?.userData?.userRating || '0').toFixed(2) : ""}</small>
+                  </li>
+              ))}
+            </ol>
+          </div>
         </div>
         <footer>
           © Topi Särkiniemi {new Date().getFullYear()},<br/>all rights reserved.

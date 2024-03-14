@@ -44,6 +44,14 @@ body {
   flex-direction: column;
   gap: 15px;
   padding: 20px 15px;
+  small {
+    display: block;
+    text-align: center;
+    color: $text-color;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
 }
 
 .brewery-item, .beer-item {
@@ -83,6 +91,9 @@ body {
     display: flex;
     align-items: start;
     justify-content: space-between;
+    span {
+      word-break: break-word;
+    }
     button {
       width: 30px;
       border: 0;
@@ -199,6 +210,20 @@ input[type="checkbox"] {
   }
 }
 
+#top-lists {
+  padding: 0 30px 20px 30px;
+  li {
+    margin-bottom: 5px;
+    color: white;
+    em, small {
+      color: $text-color;
+    }
+  }
+  & > div + div {
+    margin-top: 30px;
+  }
+}
+
 header {
   display: flex;
   align-items: center;
@@ -213,4 +238,6 @@ header {
 footer {
   padding: 5px 20px 40px;
   text-align: center;
+  color: $text-color;
+  font-size: 14px;
 }
