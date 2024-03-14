@@ -31,13 +31,75 @@ const App: React.FC = () => {
   const [minUntappdRating, setMinUntappdRating] = useState<string>('');
   const [hasUserRating, setHasUserRating] = useState(false);
   const [sortOption, setSortOption] = useState('default');
-  const [breweries, setBreweries] = useState<Brewery[]>(baseData); // Base data for breweries and beers
   const [userBeerData, setUserBeerData] = useState<Record<string, UserBeerData>>({}); // User data keyed by composite ID
   const [breweryVisibility, setBreweryVisibility] = useState<Record<number, boolean>>({});
+  const [userBreweries, setUserBreweries] = useState<Brewery[]>([])
+  const [breweries, setBreweries] = useState<Brewery[]>(baseData); // Base data for breweries and beers
   const [initialized, setInitialized] = useState(false);
 
+  /*
+  const mergeData = (userData : Brewery[]) => {
+    let combinedData = [...baseData]
+
+    // Merge user-entered breweries and beers
+    userData.forEach(userBrewery => {
+      const existingBreweryIndex = combinedData.findIndex(brewery => brewery.id === userBrewery.id);
+
+      if (existingBreweryIndex > -1) {
+        // Brewery exists, add new beers to it
+        const existingBeers = combinedData[existingBreweryIndex].beers;
+        userBrewery.beers.forEach(userBeer => {
+          if (!existingBeers.some(beer => beer.id === userBeer.id)) {
+            // This beer doesn't exist yet, add it
+            existingBeers.push(userBeer);
+          }
+        })
+      } else {
+        // New brewery, add it to the list
+        combinedData.push(userBrewery)
+      }
+    });
+    setBreweries(combinedData)
+  }
+
+   */
+  const mergeBeers = (baseBeers: Beer[], userBeers: Beer[]): Beer[] => {
+    let mergedBeers = baseBeers.map(baseBeer => {
+      const userBeer = userBeers.find(uBeer => uBeer.id === baseBeer.id);
+      return userBeer ? { ...baseBeer, ...userBeer } : baseBeer;
+    });
+
+    // Add new beers from userData that don't exist in baseBeers
+    userBeers.filter(uBeer => !mergedBeers.some(mBeer => mBeer.id === uBeer.id))
+        .forEach(newBeer => mergedBeers.push(newBeer));
+
+    return mergedBeers;
+  };
+
+  const mergeData = (userData: Brewery[]) => {
+    // Combine baseData and userData breweries, deduplicating and prioritizing userData
+    let combinedData = baseData.map(baseBrewery => {
+      const userBrewery = userData.find(uBrewery => uBrewery.id === baseBrewery.id);
+
+      if (userBrewery) {
+        // Merge beers from both sources, prioritizing userData
+        const mergedBeers = mergeBeers(baseBrewery.beers, userBrewery.beers);
+        return { ...baseBrewery, ...userBrewery, beers: mergedBeers };
+      }
+
+      return baseBrewery;
+    });
+
+    // Add new breweries from userData that don't exist in baseData
+    userData.filter(uBrewery => !combinedData.some(cBrewery => cBrewery.id === uBrewery.id))
+        .forEach(newBrewery => combinedData.push(newBrewery));
+
+    setBreweries(combinedData);
+  };
+
+
   useEffect(() => {
-    // Load filters/sorts from sessionStorage, data from localeStorage
+    // Load filters/sorts from sessionStorage, data from localStorage
     const loadedSettings = {
       searchQuery: sessionStorage.getItem('searchQuery') || '',
       showFavorites: sessionStorage.getItem('showFavorites') === 'true',
@@ -46,7 +108,34 @@ const App: React.FC = () => {
       hasUserRating: sessionStorage.getItem('hasUserRating') === 'true',
       sortOption: sessionStorage.getItem('sortOption') || 'default',
       breweryVisibility: JSON.parse(sessionStorage.getItem('breweryVisibility') || '{}'),
+      userAddedData: localStorage.getItem('userAddedData')
     };
+    const test = [
+      {
+        "id": 1,
+        "beers": [
+          {
+            "id": 7155171,
+            "name": "Testi",
+            "style": "testi olut"
+          }
+        ]
+      },
+      {
+        "id": 7155171,
+        "name":"Testipanimo",
+        "beers": [
+          {
+            "id": 7155171,
+            "name": "Testi2",
+            "style": "testi olu2t"
+          }
+        ]
+      }
+    ]
+    const userAddedData = loadedSettings.userAddedData ? JSON.parse(loadedSettings.userAddedData) : []
+    setUserBreweries(userAddedData)
+    mergeData(userAddedData)
     setSearchQuery(loadedSettings.searchQuery);
     setShowFavorites(loadedSettings.showFavorites);
     setShowBeersWithoutUntappdRating(loadedSettings.showBeersWithoutUntappdRating)
@@ -190,6 +279,144 @@ const App: React.FC = () => {
       .sort((a, b) => parseFloat(b.userData?.userRating || '0') - parseFloat(a.userData?.userRating || '0')) // Sort by user rating
       .slice(0, 10); // Get top 10
 
+  const generateUniqueId = (breweryId: number): number => {
+    const brewery = userBreweries.find(b => b.id === breweryId);
+    let highestId = 715517000000
+    if (!brewery) {
+      return 715517000000
+    }
+    brewery.beers.forEach(beer => {
+      if (beer.id > highestId) highestId = beer.id;
+    })
+
+    return highestId + 1
+  }
+
+  const generateUniqueBreweryId = (): number => {
+    let highestId = 715517000000
+    userBreweries.forEach(brewery => {
+      if (brewery.id > highestId) highestId = brewery.id
+    })
+
+    return highestId + 1
+  }
+
+  const defaultBeer = {
+    "id": 715517000000,
+    "name": "",
+    "style": "",
+    "details": "",
+    "untappdRating": ""
+  }
+
+  const defaultBrewery = {
+    "id": 715517000000,
+    "name": "",
+    "beers": [
+      defaultBeer
+    ]
+  }
+
+  const updateUserEditedData = (data: Brewery[]) => {
+    setUserBreweries(data)
+    localStorage.setItem('userAddedData', JSON.stringify(data))
+    mergeData(data)
+    console.log(data)
+  }
+
+  const addBeer = (breweryId: number) => {
+    let breweryExists = userBreweries.some(brewery => brewery.id === breweryId);
+    let updatedUserBreweries: Brewery[]
+
+    if (!breweryExists) {
+      const newBeer = { ...defaultBeer, id: generateUniqueId(breweryId) };
+      const newBrewery = {
+        id: breweryId,
+        name: "",
+        beers: [newBeer]
+      };
+      updatedUserBreweries = [...userBreweries, newBrewery]
+    } else {
+      const newUserBreweries = userBreweries.map(brewery => {
+        if (brewery?.id === breweryId) {
+          return {
+            ...brewery,
+            beers: [...brewery.beers, {...defaultBeer, id: generateUniqueId(breweryId)}]
+          }
+        }
+        return brewery
+      })
+      updatedUserBreweries = newUserBreweries
+    }
+
+    updateUserEditedData(updatedUserBreweries)
+  }
+
+  const addBrewery = () => {
+    const newBreweryId = generateUniqueBreweryId()
+
+    const newBrewery: Brewery = {
+      id: newBreweryId,
+      name: "",
+      beers: [defaultBeer]
+    }
+
+    const newUserBreweries = [...userBreweries, newBrewery]
+    updateUserEditedData(newUserBreweries)
+  };
+
+  const isCustomItem = (id: number) => {
+    return id.toString().startsWith("715517");
+  }
+
+  const handleBreweryNameChange = (e: React.ChangeEvent<HTMLInputElement>, breweryId: number, newName: string) => {
+    e.preventDefault()
+    const updatedBreweries = userBreweries.map(brewery => {
+      if (brewery.id === breweryId) {
+        return { ...brewery, name: newName };
+      }
+      return brewery;
+    });
+    updateUserEditedData(updatedBreweries);
+  };
+
+  const handleBeerNameChange = (breweryId: number, beerId: number, newName: string) => {
+    const updatedUserBreweries = userBreweries.map(brewery => {
+      if (brewery.id === breweryId) {
+        const updatedBeers = brewery.beers.map(beer => {
+          if (beer.id === beerId) {
+            return { ...beer, name: newName };
+          }
+          return beer;
+        });
+
+        return { ...brewery, beers: updatedBeers };
+      }
+      return brewery;
+    });
+
+    updateUserEditedData(updatedUserBreweries);
+  };
+
+  const handleBeerStyleChange = (breweryId: number, beerId: number, newStyle: string) => {
+    const updatedUserBreweries = userBreweries.map(brewery => {
+      if (brewery.id === breweryId) {
+        const updatedBeers = brewery.beers.map(beer => {
+          if (beer.id === beerId) {
+            return { ...beer, style: newStyle };
+          }
+          return beer;
+        });
+
+        return { ...brewery, beers: updatedBeers };
+      }
+      return brewery;
+    });
+
+    updateUserEditedData(updatedUserBreweries);
+  };
+
+
   return (
       <div>
           <header>
@@ -270,21 +497,63 @@ const App: React.FC = () => {
 
             return hasVisibleBeers && (
                     <div key={brewery.id} className={"brewery-item"}>
-                      <h2 onClick={() => toggleBreweryVisibility(brewery.id)}>{brewery.name} <span>{brewery.beers.length} {brewery.beers.length > 1 ? "beers" : "beer"}</span></h2>
+                      {isCustomItem(brewery.id) ? (
+                          <h2 onClick={()=>toggleBreweryVisibility(brewery.id)} className={"editable"}>
+                            <input
+                                type="text"
+                                placeholder={"Type brewery"}
+                                value={brewery.name}
+                                onChange={(e) => handleBreweryNameChange(e, brewery.id, e.target.value)}
+                            />
+                            <span>{brewery.beers.length} {brewery.beers.length > 1 ? "beers" : "beer"}</span>
+                          </h2>
+                          )
+                      : (
+                          <h2 onClick={() => toggleBreweryVisibility(brewery.id)}>{brewery.name} <span>{brewery.beers.length} {brewery.beers.length > 1 ? "beers" : "beer"}</span></h2>
+                        )
+                      }
                       {shouldShowBeers && brewery.beers.map(beer => {
                         const compositeKey = `${brewery.id}-${beer.id}`;
                         const userData = userBeerData[compositeKey] || {};
                         return (
                             <div key={compositeKey} className={"beer-item"}>
-                              <h3>
-                                <span>{beer.name}</span>
-                                <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
-                                  {userData.favorite ? <Starred/> : <Star/>}
-                                </button>
-                              </h3>
-                              <p>{beer.style}</p>
-                              <p>{beer.details}</p>
-                              <p>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
+                              {isCustomItem(beer.id) ? (
+                                      <>
+                                        <h3 className={"editable"}>
+                                          <input
+                                              type="text"
+                                              placeholder={"Type beer name"}
+                                              value={beer.name}
+                                              onChange={(e) => handleBeerNameChange(brewery.id, beer.id, e.target.value)}
+                                              className={"editable-beer-name"}
+                                          />
+                                          <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
+                                            {userData.favorite ? <Starred/> : <Star/>}
+                                          </button>
+                                        </h3>
+                                        <p className={"editable"}>
+                                        <input
+                                            type="text"
+                                            placeholder={"Type description"}
+                                            value={beer.style}
+                                            onChange={(e) => handleBeerStyleChange(brewery.id, beer.id, e.target.value)}
+                                        />
+                                        </p>
+                                      </>
+                                  ) : (
+                                      <>
+                                        <h3>
+                                          <span>{beer.name}</span>
+                                          <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
+                                            {userData.favorite ? <Starred/> : <Star/>}
+                                          </button>
+                                        </h3>
+                                        <p>{beer.style}</p>
+                                        <p>{beer.details}</p>
+                                        <p>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
+                                      </>
+                                  )
+                              }
                               <input
                                   type="text"
                                   inputMode={"decimal"}
@@ -304,11 +573,19 @@ const App: React.FC = () => {
                             </div>
                         );
                       })}
+                      {shouldShowBeers &&
+                          <button className={"user-add"} onClick={()=>addBeer(brewery.id)}>
+                            + add beer
+                          </button>
+                      }
                     </div>
                 )
               }
           )
         }
+        <button className={"user-add"} onClick={()=>addBrewery()}>
+          + add brewery
+        </button>
         </div>
         <div id={"top-lists"}>
           <div>

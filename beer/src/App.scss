@@ -80,6 +80,11 @@ body {
       font-style: italic;
       white-space: nowrap;
     }
+    &.editable {
+      input {
+
+      }
+    }
   }
 }
 
@@ -211,9 +216,9 @@ input[type="checkbox"] {
 }
 
 #top-lists {
-  padding: 0 30px 20px 30px;
+  padding: 0 30px 15px 30px;
   li {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     color: white;
     em, small {
       color: $text-color;
@@ -240,4 +245,23 @@ footer {
   text-align: center;
   color: $text-color;
   font-size: 14px;
+}
+
+.editable {
+  input {
+    background-color: transparent;
+    appearance: none;
+    border: 0;
+    outline: 0;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0;
+    display: inline;
+    width: unset;
+    margin: 0;
+    &::placeholder, &::-webkit-input-placeholder {
+      font-style: italic;
+    }
+  }
 }
