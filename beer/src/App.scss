@@ -112,6 +112,17 @@ body {
   }
 }
 
+.remove {
+  margin-top: 0;
+  color: $text-color;
+  & + button.user-add {
+    margin-top: 5px;
+  }
+  & + .beer-item {
+    padding-top: 25px;
+  }
+}
+
 input[type="text"], textarea, select, button {
   width: 100%;
   padding: 10px;

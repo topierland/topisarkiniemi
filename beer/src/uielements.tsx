@@ -47,3 +47,22 @@ export const DynamicInput: React.FC<DynamicInputProps> = ({placeholder, value,he
         />
     );
 }
+
+interface DeleteButtonProps {
+    onDelete: () => void; // Callback function to execute on delete confirmation
+}
+
+export const DeleteButton: React.FC<DeleteButtonProps> = ({ onDelete }) => {
+    const handleDelete = () => {
+        const isConfirmed = window.confirm('Are you sure?');
+        if (isConfirmed) {
+            onDelete();
+        }
+    };
+
+    return (
+        <button className={"remove"} onClick={handleDelete}>
+            - remove beer
+        </button>
+    );
+};

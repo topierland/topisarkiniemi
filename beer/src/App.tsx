@@ -3,7 +3,7 @@ import './App.scss';
 import baseData from './data/untappd.json';
 import { ReactComponent as Star } from './star.svg'
 import { ReactComponent as Starred } from './starred.svg'
-import {DynamicInput} from "./uielements";
+import {DeleteButton, DynamicInput} from "./uielements";
 
 interface Beer {
   id: number;
@@ -509,6 +509,7 @@ const App: React.FC = () => {
                         const compositeKey = `${brewery.id}-${beer.id}`;
                         const userData = userBeerData[compositeKey] || {};
                         return (
+                            <>
                             <div key={compositeKey} className={"beer-item"}>
                               {isCustomItem(beer.id) ? (
                                       <>
@@ -563,6 +564,10 @@ const App: React.FC = () => {
                                   onChange={(e) => handleNotesChange(brewery.id, beer.id, e.target.value)}
                               />
                             </div>
+                              {isCustomItem(beer.id) &&
+                                  <DeleteButton onDelete={() => removeBeer(brewery.id, beer.id)} />
+                              }
+                            </>
                         );
                       })}
                       {shouldShowBeers &&
