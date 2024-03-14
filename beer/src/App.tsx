@@ -3,6 +3,7 @@ import './App.scss';
 import baseData from './data/untappd.json';
 import { ReactComponent as Star } from './star.svg'
 import { ReactComponent as Starred } from './starred.svg'
+import {DynamicInput} from "./uielements";
 
 interface Beer {
   id: number;
@@ -37,62 +38,36 @@ const App: React.FC = () => {
   const [breweries, setBreweries] = useState<Brewery[]>(baseData); // Base data for breweries and beers
   const [initialized, setInitialized] = useState(false);
 
-  /*
-  const mergeData = (userData : Brewery[]) => {
-    let combinedData = [...baseData]
-
-    // Merge user-entered breweries and beers
-    userData.forEach(userBrewery => {
-      const existingBreweryIndex = combinedData.findIndex(brewery => brewery.id === userBrewery.id);
-
-      if (existingBreweryIndex > -1) {
-        // Brewery exists, add new beers to it
-        const existingBeers = combinedData[existingBreweryIndex].beers;
-        userBrewery.beers.forEach(userBeer => {
-          if (!existingBeers.some(beer => beer.id === userBeer.id)) {
-            // This beer doesn't exist yet, add it
-            existingBeers.push(userBeer);
-          }
-        })
-      } else {
-        // New brewery, add it to the list
-        combinedData.push(userBrewery)
-      }
-    });
-    setBreweries(combinedData)
-  }
-
-   */
   const mergeBeers = (baseBeers: Beer[], userBeers: Beer[]): Beer[] => {
-    let mergedBeers = baseBeers.map(baseBeer => {
+    const updatedBeers = baseBeers.map(baseBeer => {
       const userBeer = userBeers.find(uBeer => uBeer.id === baseBeer.id);
       return userBeer ? { ...baseBeer, ...userBeer } : baseBeer;
     });
 
     // Add new beers from userData that don't exist in baseBeers
-    userBeers.filter(uBeer => !mergedBeers.some(mBeer => mBeer.id === uBeer.id))
-        .forEach(newBeer => mergedBeers.push(newBeer));
+    const newBeers = userBeers.filter(uBeer => !baseBeers.some(bBeer => bBeer.id === uBeer.id));
 
-    return mergedBeers;
+    return [...updatedBeers, ...newBeers];
   };
 
   const mergeData = (userData: Brewery[]) => {
-    // Combine baseData and userData breweries, deduplicating and prioritizing userData
-    let combinedData = baseData.map(baseBrewery => {
+    let combinedData = [...baseData];
+
+    // Update existing breweries with user data
+    combinedData = combinedData.map(baseBrewery => {
       const userBrewery = userData.find(uBrewery => uBrewery.id === baseBrewery.id);
-
       if (userBrewery) {
-        // Merge beers from both sources, prioritizing userData
+        // Merge beers, prioritize user modifications
         const mergedBeers = mergeBeers(baseBrewery.beers, userBrewery.beers);
-        return { ...baseBrewery, ...userBrewery, beers: mergedBeers };
+        // Keep base brewery details, only update beers
+        return { ...baseBrewery, beers: mergedBeers };
       }
-
       return baseBrewery;
     });
 
-    // Add new breweries from userData that don't exist in baseData
-    userData.filter(uBrewery => !combinedData.some(cBrewery => cBrewery.id === uBrewery.id))
-        .forEach(newBrewery => combinedData.push(newBrewery));
+    // Append new user breweries not in baseData
+    const newUserBreweries = userData.filter(uBrewery => !combinedData.some(cBrewery => cBrewery.id === uBrewery.id));
+    combinedData = [...combinedData, ...newUserBreweries];
 
     setBreweries(combinedData);
   };
@@ -275,7 +250,7 @@ const App: React.FC = () => {
       .slice(0, 10); // Get top 10
 
   const topUserRatedBeers = allBeers
-      .filter(beer => beer.userData?.userRating) // Filter out beers without a user rating
+      .filter(beer => beer.userData?.userRating && !isNaN(parseFloat(beer.userData?.userRating || '')))// Filter out beers without a user rating
       .sort((a, b) => parseFloat(b.userData?.userRating || '0') - parseFloat(a.userData?.userRating || '0')) // Sort by user rating
       .slice(0, 10); // Get top 10
 
@@ -369,8 +344,7 @@ const App: React.FC = () => {
     return id.toString().startsWith("715517");
   }
 
-  const handleBreweryNameChange = (e: React.ChangeEvent<HTMLInputElement>, breweryId: number, newName: string) => {
-    e.preventDefault()
+  const handleBreweryNameChange = ( newName: string, breweryId: number,) => {
     const updatedBreweries = userBreweries.map(brewery => {
       if (brewery.id === breweryId) {
         return { ...brewery, name: newName };
@@ -416,6 +390,25 @@ const App: React.FC = () => {
     updateUserEditedData(updatedUserBreweries);
   };
 
+  const removeBeer = (breweryId: number, beerId: number) => {
+    const updatedUserBreweries = userBreweries.reduce<Brewery[]>((acc, brewery) => {
+      if (brewery.id === breweryId) {
+        const updatedBeers = brewery.beers.filter(beer => beer.id !== beerId);
+
+        // If it's a user-added brewery and no more beers are left, don't add the brewery back
+        if (brewery.id.toString().startsWith("715517") && updatedBeers.length === 0) {
+          return acc;
+        }
+        // Otherwise, update the brewery's beers and add it back
+        acc.push({ ...brewery, beers: updatedBeers });
+      } else {
+        acc.push(brewery);
+      }
+      return acc;
+    }, []);
+
+    updateUserEditedData(updatedUserBreweries);
+  };
 
   return (
       <div>
@@ -499,11 +492,11 @@ const App: React.FC = () => {
                     <div key={brewery.id} className={"brewery-item"}>
                       {isCustomItem(brewery.id) ? (
                           <h2 onClick={()=>toggleBreweryVisibility(brewery.id)} className={"editable"}>
-                            <input
-                                type="text"
+                            <DynamicInput
                                 placeholder={"Type brewery"}
                                 value={brewery.name}
-                                onChange={(e) => handleBreweryNameChange(e, brewery.id, e.target.value)}
+                                height={27.5}
+                                onChange={(value) => handleBreweryNameChange(value, brewery.id)}
                             />
                             <span>{brewery.beers.length} {brewery.beers.length > 1 ? "beers" : "beer"}</span>
                           </h2>
@@ -520,23 +513,22 @@ const App: React.FC = () => {
                               {isCustomItem(beer.id) ? (
                                       <>
                                         <h3 className={"editable"}>
-                                          <input
-                                              type="text"
+                                          <DynamicInput
+                                              height={22}
                                               placeholder={"Type beer name"}
                                               value={beer.name}
-                                              onChange={(e) => handleBeerNameChange(brewery.id, beer.id, e.target.value)}
-                                              className={"editable-beer-name"}
+                                              onChange={(value) => handleBeerNameChange(brewery.id, beer.id, value)}
                                           />
                                           <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
                                             {userData.favorite ? <Starred/> : <Star/>}
                                           </button>
                                         </h3>
                                         <p className={"editable"}>
-                                        <input
-                                            type="text"
+                                        <DynamicInput
+                                            height={18.5}
                                             placeholder={"Type description"}
                                             value={beer.style}
-                                            onChange={(e) => handleBeerStyleChange(brewery.id, beer.id, e.target.value)}
+                                            onChange={(value) => handleBeerStyleChange(brewery.id, beer.id, value)}
                                         />
                                         </p>
                                       </>

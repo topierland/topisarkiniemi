@@ -222,6 +222,7 @@ input[type="checkbox"] {
     color: white;
     em, small {
       color: $text-color;
+      word-break: break-word;
     }
   }
   & > div + div {
@@ -248,7 +249,7 @@ footer {
 }
 
 .editable {
-  input {
+  textarea {
     background-color: transparent;
     appearance: none;
     border: 0;
@@ -257,9 +258,9 @@ footer {
     font-size: inherit;
     font-weight: inherit;
     padding: 0;
-    display: inline;
-    width: unset;
     margin: 0;
+    width: 100%;
+    resize: none;
     &::placeholder, &::-webkit-input-placeholder {
       font-style: italic;
     }
