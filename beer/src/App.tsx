@@ -19,7 +19,7 @@ interface Brewery {
 }
 
 interface UserBeerData {
-  userRating?: number;
+  userRating?: string;
   notes?: string;
   favorite?: boolean;
 }
@@ -94,7 +94,7 @@ const App: React.FC = () => {
               userData?.notes?.toLowerCase().includes(searchLower) ||
               userData?.userRating?.toString().includes(searchLower);
           const isFavorite = showFavorites ? userData?.favorite === true : true;
-          const userRatingExists = !hasUserRating || (userData?.userRating !== undefined && userData?.userRating !== 0 && userData?.userRating !== null);
+          const userRatingExists = !hasUserRating || (userData?.userRating !== undefined && userData?.userRating !== "" && userData?.userRating !== null);
           const untappdRatingCondition = showBeersWithoutUntappdRating
               ? untappdRating === '0'
               : (minUntappdRating !== '' && parseFloat(minUntappdRating) !== 0
@@ -106,8 +106,8 @@ const App: React.FC = () => {
         .sort((a, b) => {
           const aUntappdRating = parseFloat(a.untappdRating || '0');
           const bUntappdRating = parseFloat(b.untappdRating || '0');
-          const aUserRating = a.userData?.userRating || 0;
-          const bUserRating = b.userData?.userRating || 0;
+          const aUserRating = parseFloat(a.userData?.userRating || '0');
+          const bUserRating = parseFloat(b.userData?.userRating || '0');
 
           if (sortOption === 'untappdRating') {
             return bUntappdRating - aUntappdRating;
@@ -144,7 +144,7 @@ const App: React.FC = () => {
     updateUserBeerData(breweryId, beerId, { ...existingData, favorite: !existingData.favorite });
   };
 
-  const handleUserRatingChange = (breweryId: number, beerId: number, rating: number) => {
+  const handleUserRatingChange = (breweryId: number, beerId: number, rating: string) => {
     const existingData = userBeerData[`${breweryId}-${beerId}`] || {};
     updateUserBeerData(breweryId, beerId, { ...existingData, userRating: rating });
   };
@@ -267,12 +267,14 @@ const App: React.FC = () => {
                               <p>{beer.details}</p>
                               <p>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
                               <input
-                                  type="number"
+                                  type="text"
+                                  inputMode={"decimal"}
                                   placeholder="Rate this beer"
                                   value={userData.userRating || ''}
-                                  onChange={(e) => handleUserRatingChange(brewery.id, beer.id, parseInt(e.target.value))}
-                                  min="0"
-                                  max="5"
+                                  onChange={(e) => {
+                                    const value = e.target.value.replace(",",".")
+                                    handleUserRatingChange(brewery.id, beer.id, value)
+                                  }}
                               />
                               <textarea
                                   placeholder="Add notes"
