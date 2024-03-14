@@ -28,7 +28,7 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showFavorites, setShowFavorites] = useState(false);
   const [showBeersWithoutUntappdRating, setShowBeersWithoutUntappdRating] = useState(false);
-  const [minUntappdRating, setMinUntappdRating] = useState<number | ''>('');
+  const [minUntappdRating, setMinUntappdRating] = useState<string>('');
   const [hasUserRating, setHasUserRating] = useState(false);
   const [sortOption, setSortOption] = useState('default');
   const [breweries, setBreweries] = useState<Brewery[]>(baseData); // Base data for breweries and beers
@@ -50,7 +50,7 @@ const App: React.FC = () => {
     setSearchQuery(loadedSettings.searchQuery);
     setShowFavorites(loadedSettings.showFavorites);
     setShowBeersWithoutUntappdRating(loadedSettings.showBeersWithoutUntappdRating)
-    setMinUntappdRating(loadedSettings.minUntappdRating !== null ? Number(loadedSettings.minUntappdRating) : '');
+    setMinUntappdRating(loadedSettings.minUntappdRating !== null ? loadedSettings.minUntappdRating : '');
     setHasUserRating(loadedSettings.hasUserRating);
     setSortOption(loadedSettings.sortOption);
     setBreweryVisibility(loadedSettings.breweryVisibility);
@@ -97,8 +97,8 @@ const App: React.FC = () => {
           const userRatingExists = !hasUserRating || (userData?.userRating !== undefined && userData?.userRating !== 0 && userData?.userRating !== null);
           const untappdRatingCondition = showBeersWithoutUntappdRating
               ? untappdRating === '0'
-              : (typeof minUntappdRating === 'number' && minUntappdRating !== 0
-                  ? untappdRating !== undefined && parseFloat(untappdRating) >= minUntappdRating
+              : (minUntappdRating !== '' && parseFloat(minUntappdRating) !== 0
+                  ? untappdRating !== undefined && parseFloat(untappdRating) >= parseFloat(minUntappdRating)
                   : true);
 
           return matchesSearchQuery && isFavorite && userRatingExists && untappdRatingCondition
@@ -161,14 +161,14 @@ const App: React.FC = () => {
     }));
   };
 
-  const areFiltersActive = searchQuery !== '' || showFavorites || hasUserRating || (typeof minUntappdRating === 'number' && minUntappdRating !== 0) || showBeersWithoutUntappdRating;
+  const areFiltersActive = searchQuery !== '' || showFavorites || hasUserRating || (parseFloat(minUntappdRating) !== 0) || showBeersWithoutUntappdRating;
   const visibleBreweries = areFiltersActive ? filteredAndSortedBreweries.filter(brewery => brewery.beers.length > 0) : filteredAndSortedBreweries;
 
   const [filtersExpanded, setFiltersExpanded] = useState(false)
 
   const isAnyFilterActive = searchQuery !== '' ||
       showFavorites ||
-      minUntappdRating > 0 ||
+      parseFloat(minUntappdRating) > 0 ||
       hasUserRating ||
       showBeersWithoutUntappdRating
 
@@ -180,12 +180,17 @@ const App: React.FC = () => {
         <div id={"filters"}>
           {filtersExpanded &&
               <>
-                <input
-                    type="text"
-                    placeholder="Search beers..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
+                <div className={"flex"}>
+                  <input
+                      type="search"
+                      placeholder="Search beers..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                    <button className={searchQuery?.length > 0 ? "active" : "disabled"} disabled={!(searchQuery?.length > 0)} onClick={() => setSearchQuery('')}>
+                        Clear
+                    </button>
+                </div>
                 <label>
                   <input
                       type="checkbox"
@@ -197,9 +202,13 @@ const App: React.FC = () => {
                 <label>
                   Min Untappd Rating
                   <input
-                      type="number"
+                      type="text"
+                      inputMode={"decimal"}
                       value={minUntappdRating}
-                      onChange={(e) => setMinUntappdRating(e.target.value !== '' ? Number(e.target.value) : '')}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(",",".")
+                        setMinUntappdRating(value)
+                      }}
                   />
                 </label>
                 <label>
@@ -216,7 +225,7 @@ const App: React.FC = () => {
                       checked={hasUserRating}
                       onChange={(e) => setHasUserRating(e.target.checked)}
                   />
-                  Show user rated
+                  Show my ratings
                 </label>
                 <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
                   <option value="default">Default sorting</option>
@@ -238,7 +247,7 @@ const App: React.FC = () => {
         {
           visibleBreweries.map(brewery => {
             const hasVisibleBeers = brewery.beers.length > 0
-            const shouldShowBeers = areFiltersActive || breweryVisibility[brewery.id];
+            const shouldShowBeers = breweryVisibility[brewery.id];
 
             return hasVisibleBeers && (
                     <div key={brewery.id} className={"brewery-item"}>
@@ -254,9 +263,9 @@ const App: React.FC = () => {
                                   {userData.favorite ? <Starred/> : <Star/>}
                                 </button>
                               </h3>
-                              <p>Style: {beer.style}</p>
-                              <p>Details: {beer.details}</p>
-                              <p>Untappd Rating: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
+                              <p>{beer.style}</p>
+                              <p>{beer.details}</p>
+                              <p>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
                               <input
                                   type="number"
                                   placeholder="Rate this beer"

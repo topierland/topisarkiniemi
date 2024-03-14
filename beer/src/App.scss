@@ -134,7 +134,7 @@ input[type="checkbox"] {
     border-radius: 4px;
   }
 
-  input[type="text"], input[type="number"], select {
+  input[type="text"], input[type="search"], input[type="number"], select {
     height: 38px;
     margin: 0;
   }
@@ -146,10 +146,37 @@ input[type="checkbox"] {
     align-items: center;
     gap: 5px;
     margin: 2px 0;
+    .no-wrap {
+      white-space: nowrap;
+    }
   }
 
-  input[type="text"], input[type="number"] {
+  input[type="text"], input[type="number"], input[type="search"] {
     flex-grow: 1;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    input {
+      flex-grow: 1;
+    }
+    button {
+      font-size: 14px;
+      margin: 0;
+      height: 38px;
+      background-color: $filter-background-color;
+      border: 1px solid $border-color;
+      color: $text-color;
+      padding: 0 15px;
+      width: unset;
+      box-shadow: $box-shadow-default;
+      &:disabled {
+        color: $border-color;
+        box-shadow: none;
+      }
+    }
   }
 }
 
@@ -185,4 +212,5 @@ header {
 
 footer {
   padding: 5px 20px 40px;
+  text-align: center;
 }
