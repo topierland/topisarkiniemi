@@ -1,7 +1,7 @@
 # Some of Topi's projects
 Currently includes:
 - topierland.com
-  - An outdated personal website
+  - Personal website
 - topierland.com/create
   - A javascript app to generate cool graphics
 - topierland.com/beer
