@@ -487,6 +487,7 @@ const App: React.FC = () => {
                       type="text"
                       inputMode={"decimal"}
                       value={minUntappdRating}
+                      placeholder={"Enter rating"}
                       onChange={(e) => {
                         const value = e.target.value.replace(",",".")
                         setMinUntappdRating(value)
