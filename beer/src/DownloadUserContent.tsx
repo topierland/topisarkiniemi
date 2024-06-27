@@ -92,17 +92,21 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ allBeers, userBeerData 
         downloadFile(content, fileName, fileType);
     };
 
+    const hasNotesOrRatings = () => {
+        return Object.values(userBeerData).some(data => data?.notes || data?.userRating);
+    };
+
+
     return <div className={"download"}>
         <h3>Download My Ratings & Notes</h3>
         <div className={"buttons"}>
-            <button className={"filter-toggle"} onClick={() => handleDownload('txt')}>
+            <button className={"filter-toggle"} onClick={() => handleDownload('txt')} disabled={!hasNotesOrRatings()}>
                 .txt
             </button>
-            <button className={"filter-toggle"} onClick={() => handleDownload('md')}>
+            <button className={"filter-toggle"} onClick={() => handleDownload('md')} disabled={!hasNotesOrRatings()}>
                 .md
             </button>
         </div>
-
     </div>
 };
 

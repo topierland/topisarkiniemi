@@ -37,6 +37,20 @@ const App: React.FC = () => {
   const [userBreweries, setUserBreweries] = useState<Brewery[]>([])
   const [breweries, setBreweries] = useState<Brewery[]>(baseData); // Base data for breweries and beers
   const [initialized, setInitialized] = useState(false);
+  const [hiddenBreweries, setHiddenBreweries] = useState<Record<number, boolean>>({});
+
+  const toggleHideBrewery = (breweryId: number) => {
+    setHiddenBreweries(prevState => ({
+      ...prevState,
+      [breweryId]: !prevState[breweryId],
+    }));
+  };
+
+  const handleHideBrewery = (breweryId: number) => {
+    if (window.confirm("Hide brewery? You can restore hidden breweries from 'filters & sorting'.")) {
+      toggleHideBrewery(breweryId);
+    }
+  };
 
   const mergeBeers = (baseBeers: Beer[], userBeers: Beer[]): Beer[] => {
     const updatedBeers = baseBeers.map(baseBeer => {
@@ -140,7 +154,9 @@ const App: React.FC = () => {
     return userBeerData[compositeKey];
   }
 
-  const filteredAndSortedBreweries = breweries.map(brewery => ({
+  const filteredBreweries = breweries.filter(brewery => !hiddenBreweries[brewery.id]);
+
+  const filteredAndSortedBreweries = filteredBreweries.map(brewery => ({
     ...brewery,
     beers: brewery.beers
         .map(beer => ({
@@ -258,7 +274,7 @@ const App: React.FC = () => {
       hasUserRating ||
       showBeersWithoutUntappdRating
 
-  const allBeers = breweries.flatMap(brewery =>
+  const allBeers = filteredBreweries.flatMap(brewery =>
       brewery.beers.map(beer => ({
         breweryId: brewery?.id,
         brewery: brewery?.name,
@@ -439,6 +455,13 @@ const App: React.FC = () => {
     updateUserEditedData(updatedUserBreweries);
   };
 
+  const clearHiddenBreweries = () => {
+    if (window.confirm("Do you want to restore all hidden breweries?")) {
+      setHiddenBreweries({});
+    }
+  };
+
+
   return (
       <div>
           <header>
@@ -458,14 +481,23 @@ const App: React.FC = () => {
                         Clear
                     </button>
                 </div>
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={showFavorites}
-                      onChange={(e) => setShowFavorites(e.target.checked)}
-                  />
-                  Show Starred
-                </label>
+                <div className={"flex"}>
+                  <label>
+                    <input
+                        type="checkbox"
+                        checked={showFavorites}
+                        onChange={(e) => setShowFavorites(e.target.checked)}
+                    />
+                    Show Starred
+                  </label>
+                  <button
+                      className={Object.keys(hiddenBreweries).length === 0 ? "disabled margin-left-auto" : "active margin-left-auto"}
+                      disabled={Object.keys(hiddenBreweries).length === 0}
+                      onClick={clearHiddenBreweries}
+                  >
+                    Restore hidden breweries
+                  </button>
+                </div>
                 <label>
                   Min Untappd Rating
                   <input
@@ -533,6 +565,9 @@ const App: React.FC = () => {
                       : (
                           <h2 onClick={() => toggleBreweryVisibility(brewery.id)}>{brewery.name} <span>{brewery.beers.length} {brewery.beers.length > 1 ? "beers" : "beer"}</span></h2>
                         )
+                      }
+                      {shouldShowBeers &&
+                          <button onClick={() => handleHideBrewery(brewery.id)}>- hide brewery</button>
                       }
                       {shouldShowBeers && brewery.beers.map(beer => {
                         const compositeKey = `${brewery.id}-${beer.id}`;

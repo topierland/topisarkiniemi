@@ -1,7 +1,7 @@
 // Define variables for colors and common values
 $background-color-dark: #121212;
 $text-color: #e0e0e0;
-$accent-color: #bb86fc; //#6200ea;
+$accent-color: #6200ea;
 $accent-color-hover: #3700b3;
 $accent-color-text: #bb86fc;
 $input-background-color: #333;
@@ -116,11 +116,19 @@ body {
   }
 }
 
+button +.beer-item {
+  padding-top: 10px;
+}
+
 .download {
   padding: 0 30px 30px 30px;
   .buttons {
     display: flex;
     gap: 15px;
+    button:disabled {
+      color: $border-color;
+      box-shadow: none;
+    }
   }
   //margin: 25px auto 15px;
   //border-color: $accent-color;
@@ -304,4 +312,8 @@ footer {
       font-style: italic;
     }
   }
+}
+
+.margin-left-auto {
+  margin-left: auto !important;
 }
