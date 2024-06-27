@@ -97,31 +97,10 @@ const App: React.FC = () => {
       hasUserRating: sessionStorage.getItem('hasUserRating') === 'true',
       sortOption: sessionStorage.getItem('sortOption') || 'default',
       breweryVisibility: JSON.parse(sessionStorage.getItem('breweryVisibility') || '{}'),
+      hiddenBreweries: JSON.parse(localStorage.getItem('hiddenBreweries') || '{}'),
       userAddedData: localStorage.getItem('userAddedData')
     };
-    const test = [
-      {
-        "id": 1,
-        "beers": [
-          {
-            "id": 7155171,
-            "name": "Testi",
-            "style": "testi olut"
-          }
-        ]
-      },
-      {
-        "id": 7155171,
-        "name":"Testipanimo",
-        "beers": [
-          {
-            "id": 7155171,
-            "name": "Testi2",
-            "style": "testi olu2t"
-          }
-        ]
-      }
-    ]
+
     const userAddedData = loadedSettings.userAddedData ? JSON.parse(loadedSettings.userAddedData) : []
     setUserBreweries(userAddedData)
     mergeData(userAddedData)
@@ -132,6 +111,7 @@ const App: React.FC = () => {
     setHasUserRating(loadedSettings.hasUserRating);
     setSortOption(loadedSettings.sortOption);
     setBreweryVisibility(loadedSettings.breweryVisibility);
+    setHiddenBreweries(loadedSettings.hiddenBreweries);
     setInitialized(true)
   }, []);
 
@@ -147,7 +127,8 @@ const App: React.FC = () => {
     sessionStorage.setItem('hasUserRating', hasUserRating.toString());
     sessionStorage.setItem('sortOption', sortOption);
     sessionStorage.setItem('breweryVisibility', JSON.stringify(breweryVisibility))
-  }, [searchQuery, showFavorites, minUntappdRating, hasUserRating, sortOption, showBeersWithoutUntappdRating, breweryVisibility]);
+    localStorage.setItem('hiddenBreweries', JSON.stringify(hiddenBreweries));
+  }, [searchQuery, showFavorites, minUntappdRating, hasUserRating, sortOption, showBeersWithoutUntappdRating, breweryVisibility, hiddenBreweries]);
 
   const getUserBeerData = (breweryId: number, beerId: number): UserBeerData | undefined => {
     const compositeKey = `${breweryId}-${beerId}`;
@@ -202,7 +183,7 @@ const App: React.FC = () => {
     const compositeKey = `${breweryId}-${beerId}`;
     const updatedData = { ...userBeerData, [compositeKey]: data };
     setUserBeerData(updatedData);
-    saveUserDataToLocalStorage(updatedData); // Assume this function is implemented
+    saveUserDataToLocalStorage(updatedData);
   }
 
   const loadUserDataFromLocalStorage = (): Record<string, UserBeerData> => {
