@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.scss';
 import baseData from './data/untappd.json';
-import { ReactComponent as Star } from './star.svg'
-import { ReactComponent as Starred } from './starred.svg'
 import {DeleteButton, DynamicInput} from "./uielements";
+import {BeerItem} from "./BeerItem";
+import DownloadButton from "./DownloadUserContent";
 
 interface Beer {
   id: number;
@@ -225,6 +225,28 @@ const App: React.FC = () => {
     }));
   };
 
+  const handleBeerClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, breweryId: number, beerId: number) => {
+    e.preventDefault(); // Prevent the default anchor click behavior
+
+    // Ensure the brewery is visible
+    if (!breweryVisibility[breweryId]) {
+      toggleBreweryVisibility(breweryId);
+    }
+
+    // Delay scrolling to the element to ensure it's rendered
+    setTimeout(() => {
+      const element = document.getElementById(`${breweryId}.${beerId}`);
+      if (element) {
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - 175, // Sticky element height
+          behavior: 'smooth'
+        });
+      }
+    }, 0);
+  };
+
+
   const areFiltersActive = searchQuery !== '' || showFavorites || hasUserRating || (parseFloat(minUntappdRating) !== 0) || showBeersWithoutUntappdRating;
   const visibleBreweries = areFiltersActive ? filteredAndSortedBreweries.filter(brewery => brewery.beers.length > 0) : filteredAndSortedBreweries;
   const beerCount = visibleBreweries.reduce((acc, brewery) => acc + brewery.beers.length, 0);
@@ -238,21 +260,29 @@ const App: React.FC = () => {
 
   const allBeers = breweries.flatMap(brewery =>
       brewery.beers.map(beer => ({
+        breweryId: brewery?.id,
         brewery: brewery?.name,
         ...beer,
         userData: getUserBeerData(brewery.id, beer.id)
       }))
   );
 
-  const topUntappdRatedBeers = allBeers
-      .filter(beer => beer.untappdRating) // Filter out beers without an Untappd rating
-      .sort((a, b) => parseFloat(b.untappdRating || '0') - parseFloat(a.untappdRating || '0')) // Sort by Untappd rating
-      .slice(0, 10); // Get top 10
+  const [untappdAmount, setUntappdAmount] = useState(10)
+  const [userAmount, setUserAmount] = useState(10)
 
-  const topUserRatedBeers = allBeers
+  const untappdRatedBeers = allBeers
+      .filter(beer => beer.untappdRating) // Filter out beers without an Untappd rating
+
+  const topUntappdRatedBeers = untappdRatedBeers
+      .sort((a, b) => parseFloat(b.untappdRating || '0') - parseFloat(a.untappdRating || '0')) // Sort by Untappd rating
+      .slice(0, untappdAmount); // Get top 10
+
+  const userRatedBeers = allBeers
       .filter(beer => beer.userData?.userRating && !isNaN(parseFloat(beer.userData?.userRating || '')))// Filter out beers without a user rating
+
+  const topUserRatedBeers = userRatedBeers
       .sort((a, b) => parseFloat(b.userData?.userRating || '0') - parseFloat(a.userData?.userRating || '0')) // Sort by user rating
-      .slice(0, 10); // Get top 10
+      .slice(0, userAmount); // Get top 10
 
   const generateUniqueId = (breweryId: number): number => {
     const brewery = userBreweries.find(b => b.id === breweryId);
@@ -296,7 +326,6 @@ const App: React.FC = () => {
     setUserBreweries(data)
     localStorage.setItem('userAddedData', JSON.stringify(data))
     mergeData(data)
-    console.log(data)
   }
 
   const addBeer = (breweryId: number) => {
@@ -509,65 +538,19 @@ const App: React.FC = () => {
                         const compositeKey = `${brewery.id}-${beer.id}`;
                         const userData = userBeerData[compositeKey] || {};
                         return (
-                            <>
-                            <div key={compositeKey} className={"beer-item"}>
-                              {isCustomItem(beer.id) ? (
-                                      <>
-                                        <h3 className={"editable"}>
-                                          <DynamicInput
-                                              height={22}
-                                              placeholder={"Type beer name"}
-                                              value={beer.name}
-                                              onChange={(value) => handleBeerNameChange(brewery.id, beer.id, value)}
-                                          />
-                                          <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
-                                            {userData.favorite ? <Starred/> : <Star/>}
-                                          </button>
-                                        </h3>
-                                        <p className={"editable"}>
-                                        <DynamicInput
-                                            height={18.5}
-                                            placeholder={"Type description"}
-                                            value={beer.style}
-                                            onChange={(value) => handleBeerStyleChange(brewery.id, beer.id, value)}
-                                        />
-                                        </p>
-                                      </>
-                                  ) : (
-                                      <>
-                                        <h3>
-                                          <span>{beer.name}</span>
-                                          <button onClick={() => handleFavorite(brewery.id, beer.id)} className={userData.favorite ? "starred" : ""}>
-                                            {userData.favorite ? <Starred/> : <Star/>}
-                                          </button>
-                                        </h3>
-                                        <p>{beer.style}</p>
-                                        <p>{beer.details}</p>
-                                        <p>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
-                                      </>
-                                  )
-                              }
-                              <input
-                                  type="text"
-                                  inputMode={"decimal"}
-                                  placeholder="Rate this beer"
-                                  value={userData.userRating || ''}
-                                  onChange={(e) => {
-                                    const value = e.target.value.replace(",",".")
-                                    handleUserRatingChange(brewery.id, beer.id, value)
-                                  }}
-                              />
-                              <textarea
-                                  placeholder="Add notes"
-                                  rows={4}
-                                  value={userData.notes || ''}
-                                  onChange={(e) => handleNotesChange(brewery.id, beer.id, e.target.value)}
-                              />
-                            </div>
-                              {isCustomItem(beer.id) &&
-                                  <DeleteButton onDelete={() => removeBeer(brewery.id, beer.id)} />
-                              }
-                            </>
+                            <BeerItem
+                                compositeKey={compositeKey}
+                                brewery={brewery}
+                                beer={beer}
+                                userData={userData}
+                                handleBeerNameChange={handleBeerNameChange}
+                                handleFavorite={handleFavorite}
+                                handleUserRatingChange={handleUserRatingChange}
+                                handleNotesChange={handleNotesChange}
+                                removeBeer={removeBeer}
+                                handleBeerStyleChange={handleBeerStyleChange}
+                                isCustomItem={isCustomItem}
+                            />
                         );
                       })}
                       {shouldShowBeers &&
@@ -593,9 +576,12 @@ const App: React.FC = () => {
             <ol>
               {topUserRatedBeers.map((beer,i) => (
                   <li key={i}>
-                    {beer.name} <b>{parseFloat(beer?.userData?.userRating || '0').toFixed(2)}</b><br/><small>{beer.brewery}<br/>{beer.style} {beer.details} {beer?.untappdRating ? "Untappd: " + parseFloat(beer?.untappdRating || '0').toFixed(2) : ""}</small>
+                    <a href={`#${beer.breweryId}.${beer.id}`} onClick={(e) => handleBeerClick(e, beer.breweryId, beer.id)}>{beer.name} <b>{parseFloat(beer?.userData?.userRating || '0').toFixed(2)}</b></a><br/><small>{beer.brewery}<br/>{beer.style} {beer.details} {beer?.untappdRating ? "Untappd: " + parseFloat(beer?.untappdRating || '0').toFixed(2) : ""}</small>
                   </li>
               ))}
+              {userRatedBeers?.length > userAmount &&
+                  <button onClick={()=>setUserAmount(untappdAmount + 5)}>+ Show more</button>
+              }
             </ol>
           </div>
           <div>
@@ -603,12 +589,16 @@ const App: React.FC = () => {
             <ol>
               {topUntappdRatedBeers.map((beer,i)=>(
                   <li key={i}>
-                    {beer.name} <b>{parseFloat(beer.untappdRating || '0').toFixed(2)}</b><br/><small>{beer.brewery}<br/>{beer.style} {beer.details} {beer?.userData?.userRating ? "My rating: " + parseFloat(beer?.userData?.userRating || '0').toFixed(2) : ""}</small>
+                    <a href={`#${beer.breweryId}.${beer.id}`} onClick={(e) => handleBeerClick(e, beer.breweryId, beer.id)}>{beer.name} <b>{parseFloat(beer.untappdRating || '0').toFixed(2)}</b></a><br/><small>{beer.brewery}<br/>{beer.style} {beer.details} {beer?.userData?.userRating ? "My rating: " + parseFloat(beer?.userData?.userRating || '0').toFixed(2) : ""}</small>
                   </li>
               ))}
+              {untappdRatedBeers?.length > untappdAmount &&
+                  <button onClick={()=>setUntappdAmount(untappdAmount + 5)}>+ Show more</button>
+              }
             </ol>
           </div>
         </div>
+        <DownloadButton allBeers={allBeers} userBeerData={userBeerData} />
         <footer>
           © Topi Särkiniemi {new Date().getFullYear()},<br/>all rights reserved.
         </footer>

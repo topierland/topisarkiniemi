@@ -1,8 +1,9 @@
 // Define variables for colors and common values
 $background-color-dark: #121212;
 $text-color: #e0e0e0;
-$accent-color: #6200ea;
+$accent-color: #bb86fc; //#6200ea;
 $accent-color-hover: #3700b3;
+$accent-color-text: #bb86fc;
 $input-background-color: #333;
 $border-color: #555;
 $filter-background-color: #222;
@@ -110,6 +111,26 @@ body {
       }
     }
   }
+  .filter-toggle {
+    margin-top: 10px;
+  }
+}
+
+.download {
+  padding: 0 30px 30px 30px;
+  .buttons {
+    display: flex;
+    gap: 15px;
+  }
+  //margin: 25px auto 15px;
+  //border-color: $accent-color;
+}
+
+.edit-button {
+  text-align: left;
+  padding: 0;
+  font-style: italic;
+  color: $accent-color-text;
 }
 
 .remove {
@@ -227,10 +248,13 @@ input[type="checkbox"] {
 }
 
 #top-lists {
-  padding: 0 30px 15px 30px;
+  padding: 0 30px 10px 30px;
   li {
     margin-bottom: 10px;
     color: white;
+    a {
+      color: inherit;
+    }
     em, small {
       color: $text-color;
       word-break: break-word;
@@ -238,6 +262,10 @@ input[type="checkbox"] {
   }
   & > div + div {
     margin-top: 30px;
+  }
+  ol > button {
+    text-align: left;
+    padding-left: 0;
   }
 }
 

@@ -54,7 +54,7 @@ interface DeleteButtonProps {
 
 export const DeleteButton: React.FC<DeleteButtonProps> = ({ onDelete }) => {
     const handleDelete = () => {
-        const isConfirmed = window.confirm('Are you sure?');
+        const isConfirmed = window.confirm('Are you sure you want to remove this beer?');
         if (isConfirmed) {
             onDelete();
         }
