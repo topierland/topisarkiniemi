@@ -23,19 +23,13 @@ interface DownloadButtonProps {
     userBeerData: UserBeerData;
 }
 
-const ascii = `
- @@@@@ @@@@@ @@@@@ @@@@@@ @@@@@   @@@@ @@    @@@@@ @@@@@ 
- @@@@@ @@@@@ @@@@@ @@@@@@ @@@@@ @@@@@@ @@@@@ @@@@@ @@@@@ 
- @@ @@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@@ @@    @@ @@ @@ @@ 
- @@ @@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@ @@ 
- @@ @@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@ @@ 
- @@ @@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@ @@ 
- @@ @@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@ @@ 
- @@@@  @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@@ @@ @@ @@ @@ @@ @@ 
- @@@@@ @@    @@    @@@ @@ @@ @@ @@ @@@ @@ @@ @@    @@ @@ 
- @@ @@ @@@@@ @@@@@ @@@@@  @@ @@ @@ @@@ @@ @@ @@@@@ @@@@  
- @@ @@ @@    @@    @@@ @@ @@ @@ @@ @@@ @@ @@ @@    @@ @@ 
- @@@@  @@@@@ @@@@@ @@@ @@ @@ @@ @@@@@  @@@@@ @@@@@ @@ @@ 
+const footer = `
+ .~~~~.     kippis
+ i====i_  /
+ |cccc|_)
+ |cccc|
+ \`-==-'\n
+ beernoter | craft beer helsinki 2024
 `
 
 const generateDownloadContent = (allBeers: Beer[], userBeerData: UserBeerData, format: 'txt' | 'md') => {
@@ -70,7 +64,7 @@ const generateDownloadContent = (allBeers: Beer[], userBeerData: UserBeerData, f
         }
     });
 
-    content += `${ascii}\n`
+    content += `${footer}\n`
 
     return content;
 };
