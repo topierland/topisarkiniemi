@@ -11,6 +11,7 @@ interface Beer {
   style: string;
   details: string;
   untappdRating?: string;
+  untappdUrl?: string;
 }
 
 interface Brewery {
@@ -65,7 +66,7 @@ const App: React.FC = () => {
   };
 
   const mergeData = (userData: Brewery[]) => {
-    let combinedData = [...baseData];
+    let combinedData: Brewery[] = [...baseData];
 
     // Update existing breweries with user data
     combinedData = combinedData.map(baseBrewery => {
@@ -308,7 +309,8 @@ const App: React.FC = () => {
     "name": "",
     "style": "",
     "details": "",
-    "untappdRating": ""
+    "untappdRating": "",
+    "untappdUrl": ""
   }
 
   const defaultBrewery = {

@@ -12,6 +12,7 @@ interface BeerItemProps {
         style: string;
         details?: string;
         untappdRating?: string;
+        untappdUrl?: string;
     };
     userData: {
         favorite?: boolean;
@@ -66,7 +67,10 @@ export const BeerItem: React.FC<BeerItemProps> = ({compositeKey, isCustomItem, b
                     </h3>
                     <p>{beer.style}</p>
                     <p>{beer.details}</p>
-                    <p>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
+                    {beer?.untappdUrl ?
+                        <p><a href={beer?.untappdUrl} target={"_blank"}>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</a></p> :
+                        <p>Untappd: {beer?.untappdRating ? parseFloat(beer.untappdRating).toFixed(2) : "N/A"}</p>
+                    }
                 </>
             )
             }
