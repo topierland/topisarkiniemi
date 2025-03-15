@@ -508,7 +508,7 @@ const App: React.FC = () => {
                       checked={hasUserRating}
                       onChange={(e) => setHasUserRating(e.target.checked)}
                   />
-                  Show my ratings
+                  Show my rated beers
                 </label>
                 <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
                   <option value="default">Default sorting</option>
