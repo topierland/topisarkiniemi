@@ -1,0 +1,28 @@
+# Topi Särkiniemi
+
+> Helsinki-based product designer and developer. Most of my work comes down to making complex things feel simple.
+
+## Work
+
+Product designer at [Annie](https://annieadvisor.com/), the Support Bot. Annie reaches out to students before problems escalate, using data triggers like absences to start conversations, answer questions from the school's own materials, and route students to the right support.
+
+Work spans the full product: user research with students, support staff, and leadership; interaction design; and production code.
+
+Things built for Annie:
+- A multi-agent LLM architecture with specialised support modules and routing
+- An automated LLM conversation evaluation system
+- A module generator that lets schools set up a new support bot in minutes
+- An admin interface that cut campaign setup from 16 hours to under an hour
+- A stats dashboard that pairs data with contextual explanations
+- A translation tool to launch all apps in a new language at once
+
+Former freelance clients: Earth Charter, Redhill Games, Ruohonjuuri, Lääkäripäivät, Trail.
+
+## Projects
+
+- [Universe Creator 2.0](https://topierland.com/create-webgl/) - A tool to generate cool graphics using WebGL.
+- [beernoter](https://topierland.com/beer/) - A React app designed for craft beer events to remember the beers you drank last night.
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/in/topierland/)

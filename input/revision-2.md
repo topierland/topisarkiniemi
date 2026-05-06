@@ -1,0 +1,60 @@
+# Website Copy Draft v5 - topierland.com
+
+---
+
+## Intro
+
+Topi Särkiniemi is a Helsinki-based product designer and developer. 
+
+Most of my work comes down to making complex things feel simple.
+
+---
+
+## Work
+
+I do product design for [Annie,](https://annieadvisor.com/) the Support Bot.
+
+Annie reaches out to students before problems escalate, using data triggers like absences to start conversations, answer questions from the school's own materials, and route students to the right support.
+
+I work across the full product: user research with students, support staff, and leadership; interaction design; and production code.
+
+Things I've built for Annie:
+
+- A multi-agent LLM architecture with specialised support modules and routing
+- An automated LLM conversation evaluation system
+- A module generator that lets schools set up a new support bot in minutes
+- An admin interface that cut campaign setup from 16 hours to under an hour
+- A stats dashboard that pairs data with contextual explanations
+- A translation tool to launch all of our apps in a new language at once
+
+Before Annie, I freelanced for eight years. Some former clients:
+
+[Earth Charter](https://earthcharter.org/)
+[Redhill Games](https://www.redhillgames.com/)
+[Ruohonjuuri](https://www.ruohonjuuri.fi/)
+[Lääkäripäivät](https://laakaripaivat.fi/)
+[Trail](https://trail.fi/)
+
+---
+
+## Projects
+
+Fun stuff I've created for myself:
+
+[Universe Creator](https://topierland.com/create/) - A tool to generate experimental graphics using JavaScript.
+
+[beernoter](https://topierland.com/beer/) - A React app designed for craft beer events to remember the beers you drank last night.
+
+---
+
+## Contact
+
+To get in touch with me, you can use any of these channels.
+
+I might not read LinkedIn, so I suggest you use the other channels instead.
+
+<topi.sarkiniemi@gmail.com>
+[+358 40 566 1075](tel:+358405661075)
+[linkedin](https://www.linkedin.com/in/topierland/)
+
+---

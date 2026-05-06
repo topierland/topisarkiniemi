@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://topierland.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://topierland.com/create-webgl/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://topierland.com/beer/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://topierland.com/create/</loc>
+    <priority>0.5</priority>
+  </url>
+</urlset>
