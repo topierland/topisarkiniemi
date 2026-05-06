@@ -31,8 +31,12 @@ const moverAnimating = new WeakSet();
 
 // Keep viewport height current across resizes and mobile chrome show/hide
 let windowHeight = window.innerHeight;
+let resizeTimer;
 window.addEventListener("resize", function() {
-    windowHeight = window.innerHeight;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        windowHeight = window.innerHeight;
+    }, 200);
 });
 
 window.addEventListener("optimizedScroll", function() {
