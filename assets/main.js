@@ -17,66 +17,56 @@ document.getElementById("floating-head").addEventListener("click", function() {
     });
 })();
 
+const windowHeight = window.innerHeight;
 const appears = document.getElementsByClassName("scroll-appear");
 const movers = document.getElementsByClassName("scroll-move");
+const goal = 200;
+const goal2 = 150;
 const spinners = document.getElementsByClassName("scroll-spin");
 const slowspinners = document.getElementsByClassName("slower-spin");
 
-const goal = 200;
-const goal2 = 150;
-
-// JS-side animation state — avoids DOM attribute reads/writes
-const appearAnimating = new WeakSet();
-const moverAnimating = new WeakSet();
-
-// Keep viewport height current across resizes and mobile chrome show/hide
-const windowHeight = window.innerHeight;
-
 window.addEventListener("optimizedScroll", function() {
     for (let i = 0; i < appears.length; i++) {
-        const el = appears[i];
-        const fromViewportTop = el.getBoundingClientRect().top;
+        let fromViewportTop = appears[i].getBoundingClientRect().top;
         if (fromViewportTop < windowHeight && fromViewportTop >= windowHeight / 2) {
-            el.style.opacity = `${2 - (2 * fromViewportTop / windowHeight)}`;
-            el.style.transform = `matrix(1,0,0,1,0,${2 * goal * ((fromViewportTop - windowHeight / 2) / windowHeight)})`;
-            appearAnimating.add(el);
-        } else if (fromViewportTop < windowHeight / 2 && appearAnimating.has(el)) {
-            el.style.opacity = "1";
-            el.style.transform = "matrix(1,0,0,1,0,0)";
-            appearAnimating.delete(el);
-        } else if (appearAnimating.has(el)) {
-            el.style.opacity = "0";
-            el.style.transform = `matrix(1,0,0,1,0,${goal})`;
-            appearAnimating.delete(el);
+            appears[i].style.opacity = "" + 2 - ( 2 * fromViewportTop / windowHeight ) + "";
+            appears[i].style.transform = "matrix(1,0,0,1,0," + 2 * goal * ( (fromViewportTop - windowHeight / 2) / windowHeight ) + ")";
+            appears[i].setAttribute("animate", "true");
+        } else if (fromViewportTop < windowHeight / 2 && appears[i].getAttribute("animate") === "true") {
+            appears[i].style.opacity = "1";
+            appears[i].style.transform = "matrix(1,0,0,1,0,0)";
+            appears[i].setAttribute("animate", "false");
+        } else if (appears[i].getAttribute("animate") === "true") {
+            appears[i].style.opacity = "0";
+            appears[i].style.transform = "matrix(1,0,0,1,0," + goal + ")";
+            appears[i].setAttribute("animate", "false");
         }
     }
-
     for (let i = 0; i < spinners.length; i++) {
-        const { top, height } = spinners[i].getBoundingClientRect();
-        if (top >= -height) {
-            spinners[i].style.transform = `rotate(${window.scrollY}deg)`;
+        let fromViewportTop = spinners[i].getBoundingClientRect().top;
+        let elementHeight = spinners[i].getBoundingClientRect().height;
+        if (fromViewportTop >= - elementHeight) {
+            spinners[i].style.transform = "rotate(" + window.pageYOffset + "deg)";
         }
     }
-
     for (let i = 0; i < slowspinners.length; i++) {
-        const { top, height } = slowspinners[i].getBoundingClientRect();
-        if (top >= -height && top < windowHeight) {
-            slowspinners[i].style.transform = `rotate(${Math.round(window.scrollY / 4)}deg)`;
+        let fromViewportTop = slowspinners[i].getBoundingClientRect().top;
+        let elementHeight = slowspinners[i].getBoundingClientRect().height;
+        if (fromViewportTop >= - elementHeight && fromViewportTop < windowHeight) {
+            slowspinners[i].style.transform = "rotate(" + Math.round( window.pageYOffset / 4 ) + "deg)";
         }
     }
-
     for (let i = 0; i < movers.length; i++) {
-        const el = movers[i];
-        const fromViewportTop = el.getBoundingClientRect().top;
+        let fromViewportTop = movers[i].getBoundingClientRect().top;
         if (fromViewportTop < windowHeight && fromViewportTop >= windowHeight / 2) {
-            el.style.transform = `matrix(1,0,0,1,0,${2 * goal2 * ((fromViewportTop - windowHeight / 2) / windowHeight)})`;
-            moverAnimating.add(el);
-        } else if (fromViewportTop < windowHeight / 2 && moverAnimating.has(el)) {
-            el.style.transform = "matrix(1,0,0,1,0,0)";
-            moverAnimating.delete(el);
-        } else if (moverAnimating.has(el)) {
-            el.style.transform = `matrix(1,0,0,1,0,${goal2})`;
-            moverAnimating.delete(el);
+            movers[i].style.transform = "matrix(1,0,0,1,0," + 2 * goal2 * ( (fromViewportTop - windowHeight / 2) / windowHeight ) + ")";
+            movers[i].setAttribute("animate", "true");
+        } else if (fromViewportTop < windowHeight / 2 && movers[i].getAttribute("animate") === "true") {
+            movers[i].style.transform = "matrix(1,0,0,1,0,0)";
+            movers[i].setAttribute("animate", "false");
+        } else if (movers[i].getAttribute("animate") === "true") {
+            movers[i].style.transform = "matrix(1,0,0,1,0,"+ goal2 + ")";
+            movers[i].setAttribute("animate", "false");
         }
     }
 });
