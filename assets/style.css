@@ -100,11 +100,6 @@ section + img {
     width: 3rem;
 }
 
-.scroll-appear, .scroll-move, .scroll-spin, .slower-spin {
-    will-change: transform;
-    -webkit-transform: translateZ(0);
-}
-
 #floating-head {
     min-height: 100vh;
     min-height: 100dvh;
