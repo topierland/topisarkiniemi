@@ -154,12 +154,17 @@ let storedColor, storedInt, storedXcolor, storedYcolor, storedA, storedF;
 let generating = false;
 let chunks = [];
 let totalChunks = 0;
+let lastX = 0, lastY = 0, lastT = 0;
 
 // === INIT ===
 
+let app = document.createElement("div");
+app.id = "app";
+document.body.appendChild(app);
+
 let canvas = document.createElement("canvas");
 canvas.width = canvas.height = SIZE;
-document.body.appendChild(canvas);
+app.appendChild(canvas);
 
 let gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
 if (!gl) {
@@ -309,6 +314,53 @@ function generate() {
         composite();
         done += count;
         slider.value = chunks.length;
+        slider.max = chunks.length;
+        lastX = x; lastY = y; lastT = T;
+
+        if (done < TOTAL_POINTS) {
+            requestAnimationFrame(processChunk);
+        } else {
+            generating = false;
+        }
+    }
+
+    requestAnimationFrame(processChunk);
+}
+
+function continueGenerating() {
+    if (generating) return;
+    generating = true;
+
+    let A = storedA.map(Number);
+    let F = storedF.map(Number);
+    let sin = Math.sin;
+    let cos = Math.cos;
+
+    renderToStep(chunks.length);
+
+    let x = lastX, y = lastY, T = lastT, V = 0.001;
+    let done = 0;
+
+    function processChunk() {
+        let count = Math.min(CHUNK_SIZE, TOTAL_POINTS - done);
+        let positions = new Float32Array(count * 2);
+        for (let i = 0; i < count; i++) {
+            let nx = A[0] * sin(F[0] * x) + A[1] * cos(F[1] * y) + A[2] * sin(F[2] * T);
+            let ny = A[3] * sin(F[3] * x) + A[4] * cos(F[4] * y) + A[5] * sin(F[5] * T);
+            x = nx;
+            y = ny;
+            T += V;
+            positions[i * 2] = x;
+            positions[i * 2 + 1] = y;
+        }
+
+        chunks.push({ positions, count });
+        renderChunk(positions, count);
+        composite();
+        done += count;
+        slider.value = chunks.length;
+        slider.max = chunks.length;
+        lastX = x; lastY = y; lastT = T;
 
         if (done < TOTAL_POINTS) {
             requestAnimationFrame(processChunk);
@@ -355,10 +407,19 @@ function download() {
 
 // === UI ===
 
+let controls = document.createElement("div");
+controls.id = "controls";
+app.appendChild(controls);
+
+let buttonsContainer = document.createElement("div");
+buttonsContainer.id = "buttons";
+controls.appendChild(buttonsContainer);
+
 let buttons = [
-    ["Shuffle", () => changeAll()],
+    ["Restart", () => changeAll()],
     ["New Shape", () => changeShape()],
     ["New Color", () => changeColor()],
+    ["Densify", () => continueGenerating()],
     ["Download", download]
 ];
 
@@ -366,7 +427,7 @@ buttons.forEach(([label, handler]) => {
     let btn = document.createElement("button");
     btn.textContent = label;
     btn.addEventListener("click", handler);
-    document.body.appendChild(btn);
+    buttonsContainer.appendChild(btn);
 });
 
 let slider = document.createElement("input");
@@ -375,13 +436,22 @@ slider.min = 0;
 slider.max = 0;
 slider.value = 0;
 slider.step = 1;
-slider.style.cssText = "width:100%;max-width:1920px;display:block;margin:5px 0;";
-document.body.appendChild(slider);
+controls.appendChild(slider);
 
 slider.addEventListener("input", function () {
     if (generating) return;
     renderToStep(Number(this.value));
 });
+
+// === RESIZE ===
+
+function syncControlsWidth() {
+    let canvasRect = canvas.getBoundingClientRect();
+    controls.style.width = canvasRect.width + "px";
+}
+
+window.addEventListener("resize", syncControlsWidth);
+new ResizeObserver(syncControlsWidth).observe(canvas);
 
 // === START ===
 
