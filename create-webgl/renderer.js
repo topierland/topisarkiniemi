@@ -1,4 +1,4 @@
-const SIZE = 1920;
+const SIZE = Math.min(3840, Math.max(screen.width, screen.height) * devicePixelRatio);
 const HALF = SIZE * 0.5;
 const SCALE = HALF * 0.3;
 const TOTAL_POINTS = SIZE * SIZE;
