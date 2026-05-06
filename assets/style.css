@@ -10,7 +10,7 @@ html {
 html, body {
     font-family: bilo, Arial, sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.5;
 }
 
@@ -45,6 +45,10 @@ h1, h2, p, a {
     color: inherit;
 }
 
+h1, p {
+    font-weight: inherit;
+}
+
 a {
     text-decoration: underline;
 }
@@ -57,9 +61,19 @@ ul {
 li {
     font-size: 2.2rem;
     line-height: 1.35;
-    font-weight: 400;
+    font-weight: inherit;
     color: inherit;
-    margin: 0 0 1em 0;
+    margin: 0 0 .5em 0;
+    list-style: none;
+    position: relative;
+}
+
+li::before {
+    content: "•";
+    position: absolute;
+    left: -.85em;
+    top: .125em;
+    font-size: 1.8rem;
 }
 
 h2 {
