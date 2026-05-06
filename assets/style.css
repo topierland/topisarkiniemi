@@ -20,6 +20,7 @@ body {
     color: #161817;
     background-color: #F4F3EE;
     margin: auto;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 #content {
@@ -101,6 +102,7 @@ section + img {
 
 #floating-head {
     min-height: 100vh;
+    min-height: 100dvh;
     display: -ms-grid;
     display: grid;
     -webkit-align-content: center;
@@ -117,6 +119,7 @@ section + img {
 footer {
     position: relative;
     min-height: 90vh;
+    min-height: 90dvh;
     padding: 0;
     clip-path: inset(-100vh 0 0 0);
     max-width: 60rem;
