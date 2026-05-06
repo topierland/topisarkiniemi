@@ -78,11 +78,26 @@
         <h2>Contact</h2>
         <p>To get in touch with me, you can use any of these channels.</p>
         <p>I might not read LinkedIn, so I suggest you use the other channels instead.</p>
-        <p>
-            <a href="mailto:topi.sarkiniemi@gmail.com">topi.sarkiniemi@gmail.com</a><br>
-            <a href="tel:+358405661075">+358 40 566 1075</a><br>
+        <p id="contact-info">
             <a href="https://www.linkedin.com/in/topierland/" target="_blank">linkedin</a>
         </p>
+        <script>
+            (function() {
+                var c = document.getElementById('contact-info');
+                var e = ['topi.sarkiniemi', 'gmail.com'].join('@');
+                var p = ['+358', '40', '566', '1075'];
+                var a = document.createElement('a');
+                a.href = 'mailto:' + e;
+                a.textContent = e;
+                var b = document.createElement('a');
+                b.href = 'tel:' + p.join('');
+                b.textContent = p.join(' ').replace('+358 ', '+358 ');
+                c.insertBefore(document.createElement('br'), c.firstChild);
+                c.insertBefore(b, c.firstChild);
+                c.insertBefore(document.createElement('br'), c.firstChild);
+                c.insertBefore(a, c.firstChild);
+            })();
+        </script>
     </section>
     <footer class="scroll-move">
         <img id="h-bg" class="slower-spin" src="./assets/img/h-bg.svg" alt="" />
@@ -91,6 +106,6 @@
         <img id="h-l3" class="scroll-move" src="./assets/img/h-l3.svg" alt="" />
     </footer>
 </div>
-<script src="./assets/main.js"></script>
+<script src="./assets/main.js?v=2"></script>
 </body>
 </html>
