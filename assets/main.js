@@ -29,8 +29,8 @@ window.addEventListener("optimizedScroll", function() {
     for (let i = 0; i < appears.length; i++) {
         let fromViewportTop = appears[i].getBoundingClientRect().top;
         if (fromViewportTop < windowHeight && fromViewportTop >= windowHeight / 2) {
-            appears[i].style.opacity = "" + 2 - ( 2 * fromViewportTop / windowHeight ) + "";
-            appears[i].style.transform = "matrix(1,0,0,1,0," + 2 * goal * ( (fromViewportTop - windowHeight / 2) / windowHeight ) + ")";
+            appears[i].style.opacity = Math.round( (2 - ( 2 * fromViewportTop / windowHeight )) * 100 ) / 100;
+            appears[i].style.transform = "matrix(1,0,0,1,0," + Math.round( 2 * goal * ( (fromViewportTop - windowHeight / 2) / windowHeight ) ) + ")";
             appears[i].setAttribute("animate", "true");
         } else if (fromViewportTop < windowHeight / 2 && appears[i].getAttribute("animate") === "true") {
             appears[i].style.opacity = "1";
@@ -59,7 +59,7 @@ window.addEventListener("optimizedScroll", function() {
     for (let i = 0; i < movers.length; i++) {
         let fromViewportTop = movers[i].getBoundingClientRect().top;
         if (fromViewportTop < windowHeight && fromViewportTop >= windowHeight / 2) {
-            movers[i].style.transform = "matrix(1,0,0,1,0," + 2 * goal2 * ( (fromViewportTop - windowHeight / 2) / windowHeight ) + ")";
+            movers[i].style.transform = "matrix(1,0,0,1,0," + Math.round( 2 * goal2 * ( (fromViewportTop - windowHeight / 2) / windowHeight ) ) + ")";
             movers[i].setAttribute("animate", "true");
         } else if (fromViewportTop < windowHeight / 2 && movers[i].getAttribute("animate") === "true") {
             movers[i].style.transform = "matrix(1,0,0,1,0,0)";
